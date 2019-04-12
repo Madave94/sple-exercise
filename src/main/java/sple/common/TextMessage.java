@@ -1,4 +1,4 @@
-package common;
+package sple.common;
 
 import java.io.Serializable;
 

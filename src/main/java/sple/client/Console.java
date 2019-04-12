@@ -1,4 +1,4 @@
-package client;
+package sple.client;
 
 import java.io.BufferedReader;
 import java.io.EOFException;

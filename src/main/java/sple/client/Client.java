@@ -1,4 +1,4 @@
-package client;
+package sple.client;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import common.TextMessage;
+import sple.common.TextMessage;
 
 /**
  * simple chat client

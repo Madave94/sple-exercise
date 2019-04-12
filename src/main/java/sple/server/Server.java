@@ -1,4 +1,4 @@
-package server;
+package sple.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

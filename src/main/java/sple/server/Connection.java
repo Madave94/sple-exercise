@@ -1,4 +1,4 @@
-package server;
+package sple.server;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import common.TextMessage;
+import sple.common.TextMessage;
 
 /**
  * class for an individual connection to a client. allows to send messages to
