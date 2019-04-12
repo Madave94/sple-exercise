@@ -1,0 +1,13 @@
+*
+#Whitelist
+!*/
+!*java
+!.gitignore
+!.travis.yml
+!build.gradle
+!gradle*
+!/gradle/wrapper
+#Blacklisted again
+bin
+build
+/.gradle/
