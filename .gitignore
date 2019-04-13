@@ -7,6 +7,7 @@
 !build.gradle
 !gradle*
 !/gradle/wrapper
+!.pdf
 #Blacklisted again
 bin
 build
