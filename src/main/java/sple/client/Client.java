@@ -24,16 +24,15 @@ public class Client implements Runnable {
 	protected Thread thread;
 	
 	public static void main(String args[]) throws IOException {
-		if (args.length != 2)
-			throw new RuntimeException("Syntax: ChatClient <host> <port>");
-
-		Client client = new Client(args[0], Integer.parseInt(args[1]));
+		Client client;
+		if (args.length == 0) client = new Client("localhost", 1025);
+		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
+		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
 		// call user interface here
 		new Console(client);
 	}
-
-	
+		
 	public Client(String host, int port) {
 		try {
 			System.out.println("Connecting to " + host + " (port " + port + ")...");

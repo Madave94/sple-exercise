@@ -12,7 +12,7 @@ and start a chat client with
 
     java sple.client.Client <host> <port>
 
-# soruces
+# sources
 
 Threading_1: http://tutorials.jenkov.com/java-concurrency/creating-and-starting-threads.html
 Threading_2: http://openbook.rheinwerk-verlag.de/javainsel9/javainsel_14_003.htm

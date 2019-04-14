@@ -17,9 +17,15 @@ public class Server {
 	protected HashSet<Connection> connections = new HashSet<Connection>();
 
 	public static void main(String args[]) throws IOException {
-		if (args.length != 1)
+		if (args.length == 0) 
+		{
+			System.out.println("Starting a default server with port 1025...");
+			new Server(1025);
+		} else if (args.length != 1) 
+		{
 			throw new RuntimeException("Syntax: ChatServer <port>");
-		new Server(Integer.parseInt(args[0]));
+		} 
+		else new Server(Integer.parseInt(args[0]));
 	}
 
 	/**
