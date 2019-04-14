@@ -1,4 +1,4 @@
-package sple.client;
+package client;
 
 /**
  * Listener that gets informed every time when the chat client receives a new
