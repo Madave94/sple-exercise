@@ -6,8 +6,8 @@ by David Tschirschwitz, Digital Engineering, 119383
 
 Start chat server with
 
-    java server.Server <port>
+    java sple.server.Server <port>
     
 and start a chat client with
 
-    java client.Client <host> <port>
+    java sple.client.Client <host> <port>
