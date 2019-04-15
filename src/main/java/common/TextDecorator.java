@@ -1,5 +1,8 @@
 package common;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class TextDecorator {
 	
 	/*
@@ -17,8 +20,29 @@ public class TextDecorator {
 	 * With different RegEx the user commands will be filtered step by step
 	 */
 	public String[] findNextCommand(String message) {
-		//TODO
-		return null;
+		Pattern startPattern = Pattern.compile("<{1}\\w+>{1}");
+		Pattern endPattern = Pattern.compile("<{1}/{1}\\w+>{1}");
+		Matcher startMatcher = startPattern.matcher(message);
+		Matcher endMatcher = endPattern.matcher(message);
+		String[] combined = new String[2];
+		/*
+		 * The regex extracts the color messages from the regular message
+		 * and saves them in an extra variable. The method is inconsistent
+		 * for using various colors in a row, like:
+		 * <blue><yellow>mytext</blue></yellow>
+		 */
+		if (startMatcher.find() && endMatcher.find()) {
+			combined[1] = message.substring
+					(startMatcher.start()+1, startMatcher.end()-1).toUpperCase();
+			int endPointSubStringA = startMatcher.start()-1;
+			if (endPointSubStringA < 0) endPointSubStringA = 0;
+			int endPointSubStringC = endMatcher.end()+1;
+			if (endPointSubStringC > (message.length()-1)) endPointSubStringC = message.length()-1;
+			combined[0] = message.substring(0, endPointSubStringA)+
+					message.substring(startMatcher.end(), endMatcher.start())+
+					message.substring(endPointSubStringC , message.length()-1);
+		}
+		return combined;
 	}
 	
 	/*

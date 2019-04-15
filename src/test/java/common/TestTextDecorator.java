@@ -26,7 +26,7 @@ public class TestTextDecorator {
 	@Test
 	public void testFindNextCommand() {
 		String message = "<blue>This should be blue.</blue>";
-		String[] expected = new String[] {"BLUE", "This should be blue."};
+		String[] expected = new String[] {"This should be blue.", "BLUE"};
 		String[] result = decorateMe.findNextCommand(message);
 		assertEquals(true, expected[0].equals(result[0]));
 		assertEquals(true, expected[1].equals(result[1]));
