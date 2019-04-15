@@ -18,22 +18,26 @@ public class TestTextDecorator {
 		String message = "I want to be red.";
 		String command = "RED";
 		String[] combined = new String[] {message, command};
-		String expected = "\\033[0;31mI want to be red.\\033[0m";
-		assertEquals(expected, decorateMe.applyDecorator(combined));
+		String expected = "\033[0;31mI want to be red.\033[0m";
+		String result = decorateMe.applyDecorator(combined);
+		assertEquals(true , expected.equals(result));
 	}
 
 	@Test
 	public void testFindNextCommand() {
 		String message = "<blue>This should be blue.</blue>";
 		String[] expected = new String[] {"BLUE", "This should be blue."};
-		assertArrayEquals(expected, decorateMe.findNextCommand(message));
+		String[] result = decorateMe.findNextCommand(message);
+		assertEquals(true, expected[0].equals(result[0]));
+		assertEquals(true, expected[1].equals(result[1]));
 	}
 	
 	@Test
 	public void testDecorateText() {
 		String message = "<cyan>Please make me cyan.</cyan>";
 		String expected = "\\033[0;36mPlease make me cyan.\\\\033[0m";
-		assertEquals(expected, decorateMe.decorateText(message));
+		String result = decorateMe.decorateText(message);
+		assertEquals(true, expected.equals(result));
 	}
 
 }

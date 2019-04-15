@@ -26,9 +26,11 @@ public class TextDecorator {
 	 * arg[0] = message
 	 * arg[1] = command
 	 */
-	public String applyDecorator(String[] message) {
-		//TODO
-		return null;
+	public String applyDecorator(String[] combined) {
+		String message = combined[0];
+		String command = combined[1];
+		return ColorPalette.valueOf(command).getCode()+
+				message+ColorPalette.RESET.getCode();
 	}
 
 }
