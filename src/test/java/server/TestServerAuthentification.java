@@ -11,13 +11,13 @@ public class TestServerAuthentification {
 	@Test
 	public void testLoginFails() {
 		String entered = "12345";
-		assertThat(entered, is(not(equalTo(new ServerAuthentification().login()))));
+		assertThat(false, is(not(equalTo(new ServerAuthentification().login(entered)))));
 	}
 	
 	@Test
 	public void testLoginWorks() {
 		String entered = "hodor";
-		assertThat(entered, is(equalTo(new ServerAuthentification().login())));
+		assertThat(true, is(equalTo(new ServerAuthentification().login(entered))));
 	}
 	
 }
