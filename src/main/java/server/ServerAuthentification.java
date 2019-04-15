@@ -4,9 +4,9 @@ package server;
 class ServerAuthentification {
 	static private final String PASSWORD = "hodor";
 	
-	public boolean login(String check) {
+	boolean login(String check) {
 		boolean result = false;
-		//TODO
+		if (check.equals(PASSWORD)) result = true;
 		return result;
 	}
 	

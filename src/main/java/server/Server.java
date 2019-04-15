@@ -84,5 +84,10 @@ public class Server {
 	public void removeConnection(Connection connection) {
 		connections.remove(connection);
 	}
+	
+	//Encapsulated login method, forwarded to the package private class
+	public boolean login(String check) {
+		return new ServerAuthentification().login(check);
+	}
 
 }

@@ -11,7 +11,7 @@ public class TestServerAuthentification {
 	@Test
 	public void testLoginFails() {
 		String entered = "12345";
-		assertThat(false, is(not(equalTo(new ServerAuthentification().login(entered)))));
+		assertThat(false, is(equalTo(new ServerAuthentification().login(entered))));
 	}
 	
 	@Test
