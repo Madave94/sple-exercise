@@ -35,7 +35,7 @@ public class TestTextDecorator {
 	@Test
 	public void testDecorateText() {
 		String message = "<cyan>Please make me cyan.</cyan>";
-		String expected = "\\033[0;36mPlease make me cyan.\\\\033[0m";
+		String expected = "\033[0;36mPlease make me cyan.\033[0m";
 		String result = decorateMe.decorateText(message);
 		assertEquals(true, expected.equals(result));
 	}

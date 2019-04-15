@@ -5,6 +5,10 @@ import java.util.regex.Matcher;
 
 public class TextDecorator {
 	
+	//Pattern various methods
+	Pattern startPattern = Pattern.compile("<{1}\\w+>{1}");
+	Pattern endPattern = Pattern.compile("<{1}/{1}\\w+>{1}");
+	
 	/*
 	 * Here I want to call the decorater method recursivly until
 	 * there is no more user command.
@@ -12,16 +16,27 @@ public class TextDecorator {
 	 * <color> message </color>
 	 */
 	public String decorateText(String message) {
-		//TODO
-		return null;
+		String currentMessage = message;
+		while(hasAnotherDecorator(currentMessage)) 
+		{
+			String[] combined = findNextCommand(currentMessage);
+			currentMessage = applyDecorator(combined);
+		}
+		return currentMessage;
+	}
+	
+	public boolean hasAnotherDecorator(String message) {
+		boolean result = false;
+		Matcher startMatcher = startPattern.matcher(message);
+		Matcher endMatcher = endPattern.matcher(message);
+		if (startMatcher.find() && endMatcher.find()) result = true;		
+		return result;
 	}
 	
 	/*
 	 * With different RegEx the user commands will be filtered step by step
 	 */
 	public String[] findNextCommand(String message) {
-		Pattern startPattern = Pattern.compile("<{1}\\w+>{1}");
-		Pattern endPattern = Pattern.compile("<{1}/{1}\\w+>{1}");
 		Matcher startMatcher = startPattern.matcher(message);
 		Matcher endMatcher = endPattern.matcher(message);
 		String[] combined = new String[2];
