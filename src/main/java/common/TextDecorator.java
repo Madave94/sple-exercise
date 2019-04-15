@@ -16,15 +16,17 @@ public class TextDecorator {
 	/*
 	 * With different RegEx the user commands will be filtered step by step
 	 */
-	private String findNextCommand(String message) {
+	public String[] findNextCommand(String message) {
 		//TODO
 		return null;
 	}
 	
 	/*
 	 * Connect to ColorPalette and and get the Color
+	 * arg[0] = message
+	 * arg[1] = command
 	 */
-	private String applyCommand(String message) {
+	public String applyDecorator(String[] message) {
 		//TODO
 		return null;
 	}
