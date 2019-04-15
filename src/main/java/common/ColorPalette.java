@@ -1,6 +1,6 @@
-package sple;
+package common;
 
-public class ConsoleColors {
+public class ColorPalette {
 	
 	//https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 	
