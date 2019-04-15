@@ -24,6 +24,10 @@ public class Client implements Runnable {
 	protected Thread thread;
 	
 	public static void main(String args[]) throws IOException {
+		launcher(args);
+	}
+	
+	static public void launcher(String args[]) {
 		Client client;
 		if (args.length == 0) client = new Client("localhost", 1025);
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
