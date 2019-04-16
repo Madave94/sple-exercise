@@ -5,6 +5,8 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import common.TextDecorator;
+
 public class Console implements ChatLineListener,Runnable {
 	
 	protected Thread thread;
@@ -48,7 +50,8 @@ public class Console implements ChatLineListener,Runnable {
 
 	@Override
 	public void newChatLine(String line) {
-		System.out.print(line);
+		String coloredLine = new TextDecorator().decorateText(line);
+		System.out.print(coloredLine);
 		
 	}
 }

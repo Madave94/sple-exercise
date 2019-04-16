@@ -45,7 +45,12 @@ public class Server {
 			c.start();
 		}
 	}
-
+	
+	//Encapsulated login method, forwarded to the package private class
+	public boolean login(String check) {
+		return new ServerAuthentification().login(check);
+	}
+	
 	/**
 	 * creates a new connection for a socket
 	 * 
@@ -83,11 +88,6 @@ public class Server {
 	 */
 	public void removeConnection(Connection connection) {
 		connections.remove(connection);
-	}
-	
-	//Encapsulated login method, forwarded to the package private class
-	public boolean login(String check) {
-		return new ServerAuthentification().login(check);
 	}
 
 }
