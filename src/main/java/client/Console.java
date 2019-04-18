@@ -50,8 +50,7 @@ public class Console implements ChatLineListener,Runnable {
 
 	@Override
 	public void newChatLine(String line) {
-		String coloredLine = new TextDecorator().decorateText(line);
-		System.out.print(coloredLine);
+		System.out.print(line);
 		
 	}
 }

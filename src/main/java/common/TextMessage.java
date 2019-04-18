@@ -14,10 +14,12 @@ public class TextMessage implements Serializable {
 
 	public TextMessage(String content) {
 		super();
-		this.content = content;
+		String decoratedContent = new TextDecorator().decorateText(content);
+		this.content = decoratedContent;
 	}
 
 	public String getContent() {
+		
 		return content;
 	}
 }
