@@ -42,7 +42,13 @@ public class Server {
 			Socket client = server.accept();
 			
 			//Authentification process
-			new ServerAuthentification(this, client);
+			//new ServerAuthentification(this, client);
+			
+			
+			System.out.println("Accepted from " + client.getInetAddress());
+			Connection c = connectTo(client);
+			c.start();
+			
 		}
 	}
 	

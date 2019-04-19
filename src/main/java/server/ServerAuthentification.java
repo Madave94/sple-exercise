@@ -1,8 +1,7 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.*;
 
 import common.TextMessage;
@@ -12,8 +11,8 @@ class ServerAuthentification implements Runnable{
 	static private final String PASSWORD = "hodor";
 	Server server;
 	Socket client;
-	protected ObjectInputStream inputStream;
-	protected ObjectOutputStream outputStream;
+	protected BufferedReader inputStream;
+	protected BufferedWriter outputStream;
 	
 	public ServerAuthentification(Server server, Socket client) {
 		this.server = server;
@@ -34,16 +33,17 @@ class ServerAuthentification implements Runnable{
 		
 		//connect client streams
 		try {
-			this.outputStream = new ObjectOutputStream((client.getOutputStream()));
-			this.inputStream = new ObjectInputStream((client.getInputStream()));
-			outputStream.writeObject("Please enter the password!");
-			TextMessage answer = (TextMessage) inputStream.readObject();
-			if (login(answer.getContent())) {
+			this.outputStream = new BufferedWriter (new OutputStreamWriter((client.getOutputStream())));
+			this.inputStream = new BufferedReader (new InputStreamReader((client.getInputStream())));
+			outputStream.write("Please enter the password!");
+			outputStream.flush();
+			String answer = inputStream.readLine();
+			if (login(answer)) {
 				System.out.println("Accepted from " + client.getInetAddress());
 				Connection c = server.connectTo(client);
 				c.start();
 			}
-		} catch (IOException | ClassNotFoundException e) { e.printStackTrace();}
+		} catch (IOException e) { e.printStackTrace();}
 		finally {
 			try {
 				outputStream.close();
