@@ -8,16 +8,6 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class TestServerAuthentification {
 	
-	@Test
-	public void testLoginFails() {
-		String entered = "12345";
-		assertThat(false, is(equalTo(new ServerAuthentification().login(entered))));
-	}
-	
-	@Test
-	public void testLoginWorks() {
-		String entered = "hodor";
-		assertThat(true, is(equalTo(new ServerAuthentification().login(entered))));
-	}
+
 	
 }
