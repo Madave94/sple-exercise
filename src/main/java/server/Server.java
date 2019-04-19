@@ -40,15 +40,17 @@ public class Server {
 		while (true) {
 			System.out.println("Waiting for Connections...");
 			Socket client = server.accept();
+			
+			//Authentification process
+			
+			new ServerAuthentification(server, client);
+			
+			//Here new server
+			
 			System.out.println("Accepted from " + client.getInetAddress());
 			Connection c = connectTo(client);
 			c.start();
 		}
-	}
-	
-	//Encapsulated login method, forwarded to the package private class
-	public boolean login(String check) {
-		return new ServerAuthentification().login(check);
 	}
 	
 	/**

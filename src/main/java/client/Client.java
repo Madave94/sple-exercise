@@ -44,10 +44,7 @@ public class Client implements Runnable {
 			Socket s = new Socket(host, port);
 			
 			this.outputStream = new ObjectOutputStream((s.getOutputStream()));
-			this.inputStream = new ObjectInputStream((s.getInputStream()));
-			
-			//Include passwordthread here
-			
+			this.inputStream = new ObjectInputStream((s.getInputStream()));	
 			
 			thread = new Thread(this);
 			thread.start();
