@@ -94,4 +94,14 @@ public class Connection extends Thread {
 		} catch (IOException ex) {
 		}
 	}
+	
+	public void close() {
+		try {
+			inputStream.close();
+			outputStream.close();
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

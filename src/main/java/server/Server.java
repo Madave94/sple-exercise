@@ -39,15 +39,15 @@ public class Server {
 		System.out.println("Initialized Logger");
 		while (true) {
 			System.out.println("Waiting for Connections...");
-			Socket client = server.accept();
-			
-			//Authentification process
-			//new ServerAuthentification(this, client);
-			
+			Socket client = server.accept();			
 			
 			System.out.println("Accepted from " + client.getInetAddress());
 			Connection c = connectTo(client);
-			c.start();
+			
+			//Authentification process
+			new ServerAuthentification(c);
+			
+			//c.start();
 			
 		}
 	}
