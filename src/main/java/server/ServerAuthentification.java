@@ -28,11 +28,13 @@ class ServerAuthentification implements Runnable{
 	@Override
 	public void run() {
 		try {
-			connection.send("Please type the password.");
+			connection.send("Please type the password:");
 			TextMessage msg = (TextMessage) inputStream.readObject();
 			if (login(msg.getContent())) {
+				connection.send("Authentification succesful!");
 				connection.start();
 			} else {
+				connection.send("Authentification failed!");
 				connection.close();
 			}			
 		} catch (IOException | ClassNotFoundException e) {
