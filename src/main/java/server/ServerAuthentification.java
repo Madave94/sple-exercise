@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 
+import common.AuthentificationMessage;
 import common.TextMessage;
 
 //package private
@@ -28,10 +29,11 @@ class ServerAuthentification implements Runnable{
 	@Override
 	public void run() {
 		try {
-			connection.send("Please type the password:");
+			connection.send("Requesting password...");
+			//AuthentificationMessage msg = (AuthentificationMessage) inputStream.readObject();
 			TextMessage msg = (TextMessage) inputStream.readObject();
 			if (login(msg.getContent())) {
-				connection.send("Authentification succesful!");
+				connection.send("Authentification successful!");
 				connection.start();
 			} else {
 				connection.send("Authentification failed!");

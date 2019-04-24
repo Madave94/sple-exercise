@@ -47,8 +47,7 @@ public class Client implements Runnable {
 			this.inputStream = new ObjectInputStream((s.getInputStream()));	
 			
 			thread = new Thread(this);
-			thread.start();
-			
+			new ClientAuthentification(this);	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
