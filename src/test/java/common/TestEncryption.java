@@ -36,5 +36,21 @@ public class TestEncryption {
 		String expected = "Mir gehts gut!";
 		assertEquals(true, expected.equals(result));		
 	}
+	
+	@Test
+	public void testEncryptedTextMessage() {
+		TextMessage msg = new TextMessage("Codiere mich.");
+		TextMessage result = new ROT13().encrypt(msg);
+		TextMessage expected = new TextMessage("Pbqvrer zvpu.");
+		assertEquals(true, expected.equals(result));
+	}
+	
+	@Test
+	public void testDecryptionTextMessage() {
+		TextMessage msg = new TextMessage("Rapbqr zvpu.");
+		TextMessage result = new ROT13().decrypt(msg);
+		TextMessage expected = new TextMessage("Encode mich.");
+		assertEquals(true, expected.equals(result));		
+	}
 
 }
