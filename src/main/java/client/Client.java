@@ -21,7 +21,7 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-	static private final String PASSWORD = "hodor";
+	private String PASSWORD;
 	
 	protected Thread thread;
 	
@@ -32,6 +32,7 @@ public class Client implements Runnable {
 	static public void launcher(String args[]) {
 		Client client;
 		if (args.length == 0) client = new Client("localhost", 1025);
+		else if (args.length == 3) client = new Client(args[0], Integer.parseInt(args[1]), args[2]);
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
@@ -40,6 +41,12 @@ public class Client implements Runnable {
 	}
 		
 	public Client(String host, int port) {
+		//Using default correct password
+		this(host, port, "hodor");
+	}
+	
+	public Client(String host, int port, String password) {
+		setPassword(password);
 		try {
 			System.out.println("Connecting to " + host + " (port " + port + ")...");
 			
@@ -53,8 +60,6 @@ public class Client implements Runnable {
 			send(PASSWORD);
 			
 			thread.start();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -165,5 +170,9 @@ public class Client implements Runnable {
 		if (thread.isAlive()) thread.interrupt();
 		if (outputStream != null) outputStream.close();
 		System.exit(0);
+	}
+	
+	public void setPassword(String password) {
+		this.PASSWORD = password;
 	}
 }

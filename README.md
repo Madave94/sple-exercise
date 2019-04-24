@@ -6,11 +6,20 @@ by David Tschirschwitz, Digital Engineering, 119383
 
 Start chat server with
 
-    java sple.server.Server <port>
+    java server.Server <port>
     
 and start a chat client with
 
-    java sple.client.Client <host> <port>
+    java client.Client <host> <port> <password>
+
+Start default server with
+'''
+java server.Server
+'''
+and start a default chat client with
+'''
+java client.Client
+'''
 
 # sources
 
