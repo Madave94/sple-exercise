@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import common.AuthentificationMessage;
 import common.TextMessage;
 
 /**
@@ -60,15 +61,17 @@ public class Client implements Runnable {
 		}
 	}
 	
-	public boolean handshake() {
-		boolean result = true;
+	public boolean handshake() throws ClassNotFoundException, IOException {
+		AuthentificationMessage hasAccess = new AuthentificationMessage(true);
 		//change to false later
 		send(PASSWORD);
-		//read AuthentificationMessage here ------
-		
-		
-		/// ------
-		return result;
+		//read AuthentificationMessage here
+		//Object msg = inputStream.readObject();
+		//if (msg instanceof AuthentificationMessage) {
+		//	hasAccess = (AuthentificationMessage) msg;
+		//}
+		// ------
+		return hasAccess.getContent();
 	}
 
 	/**
@@ -80,7 +83,7 @@ public class Client implements Runnable {
 			while (thread == thisthread) {
 				try {
 					Object msg = inputStream.readObject();
-					handleIncomingMessage(msg);
+					if (msg instanceof TextMessage) handleIncomingMessage(msg);
 				} catch (EOFException e) {
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
