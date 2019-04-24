@@ -2,6 +2,8 @@ package client;
 
 import java.io.*;
 
+import common.AuthentificationMessage;
+
 public class ClientAuthentification implements Runnable{
 	
 	Client chatClient;
@@ -27,7 +29,16 @@ public class ClientAuthentification implements Runnable{
 
 	@Override
 	public void run() {
-		chatThread.start();		
+		try {
+			AuthentificationMessage msg = (AuthentificationMessage) inputStream.readObject();
+			System.out.println(msg.getContent());
+			
+			chatThread.start();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 
 }

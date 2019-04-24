@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+import common.AuthentificationMessage;
 import common.TextMessage;
 
 /**
@@ -87,6 +88,16 @@ public class Connection extends Thread {
 	}
 
 	public void send(TextMessage msg) {
+		try {
+			synchronized (outputStream) {
+				outputStream.writeObject(msg);
+			}
+			outputStream.flush();
+		} catch (IOException ex) {
+		}
+	}
+	
+	public void send(AuthentificationMessage msg) {
 		try {
 			synchronized (outputStream) {
 				outputStream.writeObject(msg);
