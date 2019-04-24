@@ -19,7 +19,22 @@ public class TestEncryption {
 		String result = new ROT13().decrypt(decryptMe);
 		String expected = "Mir gehts gut!";
 		assertEquals(true, expected.equals(result));
-		
+	}
+	
+	@Test
+	public void testSwapEncryption() {
+		String encryptMe = "Hallo wie gehts!";
+		String result = new Swap2Letters().encrypt(encryptMe);
+		String expected = "aHllo wie gehts!";
+		assertEquals(true, expected.equals(result));		
+	}
+	
+	@Test
+	public void testSwapDecryption() {
+		String decryptMe = "iMr gehts gut!";
+		String result = new Swap2Letters().decrypt(decryptMe);
+		String expected = "Mir gehts gut!";
+		assertEquals(true, expected.equals(result));		
 	}
 
 }
