@@ -13,13 +13,12 @@ and start a chat client with
     java client.Client <host> <port> <password>
 
 Start default server with
-'''
-java server.Server
-'''
+
+    java server.Server
+
 and start a default chat client with
-'''
-java client.Client
-'''
+
+    java client.Client
 
 # sources
 
