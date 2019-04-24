@@ -15,12 +15,13 @@ public class TextMessage implements Serializable {
 	public TextMessage(String content) {
 		super();
 		String decoratedContent = new TextDecorator().decorateText(content);
-		this.content = decoratedContent;
+		String encryptedContent = new Swap2Letters().encrypt(decoratedContent);
+		this.content = encryptedContent;
 	}
 
 	public String getContent() {
-		
-		return content;
+				
+		return new Swap2Letters().decrypt(content);
 	}
 	
 	@Override
