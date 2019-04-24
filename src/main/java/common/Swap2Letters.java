@@ -4,14 +4,18 @@ public class Swap2Letters extends Encryption{
 
 	@Override
 	public String encrypt(String msg) {
-		// TODO Auto-generated method stub
-		return null;
+		if (msg.length() < 2) return msg;
+		char[] c = msg.toCharArray();
+		char temp = c[0];
+		c[0] = c[1];
+		c[1] = temp;
+		return new String(c);
 	}
 
 	@Override
 	public String decrypt(String msg) {
-		// TODO Auto-generated method stub
-		return null;
+		String newMsg = encrypt(msg);
+		return newMsg;
 	}
 
 }

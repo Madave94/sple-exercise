@@ -3,11 +3,15 @@ package common;
 public abstract class Encryption {
 	
 	public TextMessage encrypt (TextMessage msg) {
-		return null;
+		String content = msg.getContent();
+		String encryptedContent = encrypt(content);		
+		return new TextMessage(encryptedContent);
 	}
 	
 	public TextMessage decrypt (TextMessage msg) {
-		return null;
+		String content = msg.getContent();
+		String decryptedContent = decrypt(content);
+		return new TextMessage(decryptedContent);
 	}
 	
 	public String encrypt(String msg) {
