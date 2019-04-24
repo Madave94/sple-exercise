@@ -6,15 +6,15 @@ public class AuthentificationMessage implements Serializable{
 
 	private static final long serialVersionUID = -5850676626808871111L;
 	
-	private String password;
+	private boolean access;
 	
-	public AuthentificationMessage(String password) {
+	public AuthentificationMessage(boolean access) {
 		super();
-		this.password = password;
+		this.access = access;
 	}
 	
-	public String getContent() {
-		return password;
+	public boolean getContent() {
+		return access;
 	}
 
 }

@@ -20,6 +20,7 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+	static private final String PASSWORD = "hodor";
 	
 	protected Thread thread;
 	
@@ -47,12 +48,27 @@ public class Client implements Runnable {
 			this.inputStream = new ObjectInputStream((s.getInputStream()));	
 			
 			thread = new Thread(this);
-			//new ClientAuthentification(this);	
-			thread.start();
+			if (handshake()) {
+				thread.start();
+			} else {
+				close();
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean handshake() {
+		boolean result = true;
+		//change to false later
+		send(PASSWORD);
+		//read AuthentificationMessage here ------
+		
+		
+		/// ------
+		return result;
 	}
 
 	/**
@@ -140,5 +156,9 @@ public class Client implements Runnable {
 
 	public void stop() {
 		thread = null;
+	}
+	
+	public void close() throws IOException {
+		if (outputStream != null) outputStream.close();
 	}
 }

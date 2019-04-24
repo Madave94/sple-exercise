@@ -30,7 +30,6 @@ class ServerAuthentification implements Runnable{
 	public void run() {
 		try {
 			connection.send("Requesting password...");
-			//AuthentificationMessage msg = (AuthentificationMessage) inputStream.readObject();
 			TextMessage msg = (TextMessage) inputStream.readObject();
 			if (login(msg.getContent())) {
 				connection.send("Authentification successful!");

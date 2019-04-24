@@ -107,13 +107,7 @@ public class Connection extends Thread {
 		}
 	}
 	
-	public void close() {
-		try {
-			inputStream.close();
-			outputStream.close();
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void close() throws IOException {
+		if (outputStream != null) outputStream.close();
 	}
 }
