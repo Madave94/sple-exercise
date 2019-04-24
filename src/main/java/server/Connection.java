@@ -73,6 +73,7 @@ public class Connection extends Thread {
 			String incomingMessage = ((TextMessage) msg).getContent();
 			server.broadcast(name + " - " + incomingMessage);
 		}
+		// add condition for password phrases
 	}
 
 	/**
