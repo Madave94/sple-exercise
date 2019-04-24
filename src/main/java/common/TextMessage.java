@@ -22,4 +22,15 @@ public class TextMessage implements Serializable {
 		
 		return content;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		boolean result = false;
+		if (o != null && o instanceof TextMessage) {
+			TextMessage msg = (TextMessage) o;
+			String otherContent = msg.getContent();
+			if (content.equals(otherContent)) result = true;
+		}
+		return result;
+	}
 }
