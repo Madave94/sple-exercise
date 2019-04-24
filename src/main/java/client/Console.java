@@ -44,6 +44,7 @@ public class Console implements ChatLineListener,Runnable {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
+			System.out.println("Consol thread closed.");
 			thread = null;
 		}	
 	}

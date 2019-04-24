@@ -20,7 +20,6 @@ public class TextMessage implements Serializable {
 	}
 
 	public String getContent() {
-				
 		return new Swap2Letters().decrypt(content);
 	}
 	

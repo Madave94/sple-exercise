@@ -49,29 +49,15 @@ public class Client implements Runnable {
 			this.inputStream = new ObjectInputStream((s.getInputStream()));	
 			
 			thread = new Thread(this);
-			if (handshake()) {
-				thread.start();
-			} else {
-				close();
-			}
+			//making the handshake
+			send(PASSWORD);
+			
+			thread.start();
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public boolean handshake() throws ClassNotFoundException, IOException {
-		AuthentificationMessage hasAccess = new AuthentificationMessage(true);
-		//change to false later
-		send(PASSWORD);
-		//read AuthentificationMessage here
-		//Object msg = inputStream.readObject();
-		//if (msg instanceof AuthentificationMessage) {
-		//	hasAccess = (AuthentificationMessage) msg;
-		//}
-		// ------
-		return hasAccess.getContent();
 	}
 
 	/**
@@ -80,10 +66,10 @@ public class Client implements Runnable {
 	public void run() {
 		try {
 			Thread thisthread = Thread.currentThread();
-			while (thread == thisthread) {
+			while (thread == thisthread && !thisthread.interrupted()) {
 				try {
 					Object msg = inputStream.readObject();
-					if (msg instanceof TextMessage) handleIncomingMessage(msg);
+					handleIncomingMessage(msg);
 				} catch (EOFException e) {
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
@@ -93,6 +79,7 @@ public class Client implements Runnable {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
+			//System.out.println("Client thread closed.");
 			thread = null;
 			try {
 				outputStream.close();
@@ -112,6 +99,19 @@ public class Client implements Runnable {
 		if (msg instanceof TextMessage) {
 			fireAddLine(((TextMessage) msg).getContent() + "\n");
 		}
+		//kick the client if the Authentification is false
+		if (msg instanceof AuthentificationMessage) {
+			try {
+				handleAuthentificationMessage(msg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void handleAuthentificationMessage(Object msg) throws IOException {
+		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
+		if (!hasAccess) close();
 	}
 
 	public void send(String line) {
@@ -162,6 +162,8 @@ public class Client implements Runnable {
 	}
 	
 	public void close() throws IOException {
+		if (thread.isAlive()) thread.interrupt();
 		if (outputStream != null) outputStream.close();
+		System.exit(0);
 	}
 }

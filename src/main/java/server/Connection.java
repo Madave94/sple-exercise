@@ -74,7 +74,10 @@ public class Connection extends Thread {
 			String incomingMessage = ((TextMessage) msg).getContent();
 			server.broadcast(name + " - " + incomingMessage);
 		}
-		// add condition for password phrases
+		if (msg instanceof AuthentificationMessage) {
+			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
+			System.out.println("Authentification was " + incomingMessage);
+		}
 	}
 
 	/**
