@@ -23,8 +23,13 @@ and start a default chat client with
 # sources
 
 Threading_1: http://tutorials.jenkov.com/java-concurrency/creating-and-starting-threads.html
+
 Threading_2: http://openbook.rheinwerk-verlag.de/javainsel9/javainsel_14_003.htm
+
 IO_Stream: http://openbook.rheinwerk-verlag.de/javainsel/18_004.html#u18.4
+
 Server-Client_1: http://openbook.rheinwerk-verlag.de/javainsel9/javainsel_21_007.htm#mj1ba27dc5fdf53f527163767f188e1d2e
+
 Server-Client_2: https://www.youtube.com/watch?v=LAwp_F6PSAw&list=PLE4E8B5A20B0A5091&index=4
 
+Logging: http://openbook.rheinwerk-verlag.de/java7/1507_20_001.html

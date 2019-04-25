@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.logging.*;
+
+import common.AuthentificationMessage;
 
 /**
  * server's main class. accepts incoming connections and allows broadcasting
@@ -15,6 +18,7 @@ public class Server {
 	 * list of all known connections
 	 */
 	protected HashSet<Connection> connections = new HashSet<Connection>();
+	private static final Logger log = Logger.getLogger(Server.class.getName());
 
 	public static void main(String args[]) throws IOException {
 		if (args.length == 0) 
@@ -35,13 +39,23 @@ public class Server {
 	 *            port to listen on
 	 */
 	public Server(int port) throws IOException {
-		ServerSocket server = new ServerSocket(port);
+		//Setting logger
+		log.setUseParentHandlers(false);
+		Handler handler = new FileHandler( "log.xml" );
+		log.addHandler(handler);
+
 		System.out.println("Initialized Logger");
+		log.info("Initialized Logger");
+		
+		//Creating ServerSocket
+		ServerSocket server = new ServerSocket(port);
 		while (true) {
 			System.out.println("Waiting for Connections...");
+			log.info("Waiting for Connections...");
 			Socket client = server.accept();			
 			
 			System.out.println("Accepted from " + client.getInetAddress());
+			log.info("Accepted from " + client.getInetAddress());
 			Connection c = connectTo(client);
 			
 			//Authentification process
@@ -89,6 +103,17 @@ public class Server {
 	 */
 	public void removeConnection(Connection connection) {
 		connections.remove(connection);
+	}
+	
+	public void close() {
+		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+		synchronized (connections) {
+			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
+				Connection connection = (Connection) iterator.next();
+				connection.send(hasAccess);
+				removeConnection(connection);
+			}
+		}
 	}
 
 }
