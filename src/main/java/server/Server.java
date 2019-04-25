@@ -75,6 +75,7 @@ public class Server {
 	 *         this socket
 	 */
 	public Connection connectTo(Socket socket) {
+		log.info("Connected the client: " + socket.getInetAddress());
 		Connection connection = new Connection(socket, this);
 		connections.add(connection);
 		return connection;
@@ -87,6 +88,7 @@ public class Server {
 	 *            content of the message
 	 */
 	public void broadcast(String text) {
+		log.info("Broadcast message: " + text);
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
@@ -102,11 +104,13 @@ public class Server {
 	 *            connection to remove
 	 */
 	public void removeConnection(Connection connection) {
+		log.info("Removed connection: " + connection.socket.getInetAddress());
 		connections.remove(connection);
 	}
 	
 	public void close() {
 		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+		log.warning("Kicked all clients.");
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
