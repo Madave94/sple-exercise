@@ -84,7 +84,6 @@ public class Client implements Runnable {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
-			//System.out.println("Client thread closed.");
 			thread = null;
 			try {
 				outputStream.close();
@@ -104,7 +103,7 @@ public class Client implements Runnable {
 		if (msg instanceof TextMessage) {
 			fireAddLine(((TextMessage) msg).getContent() + "\n");
 		}
-		//kick the client if the Authentification is false
+		// kick the client if the Authentification is false
 		if (msg instanceof AuthentificationMessage) {
 			try {
 				handleAuthentificationMessage(msg);

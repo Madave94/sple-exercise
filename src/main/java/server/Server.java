@@ -39,7 +39,7 @@ public class Server {
 	 *            port to listen on
 	 */
 	public Server(int port) throws IOException {
-		//Setting logger
+		// Setting logger
 		log.setUseParentHandlers(false);
 		Handler handler = new FileHandler( "log.xml" );
 		log.addHandler(handler);
@@ -47,7 +47,7 @@ public class Server {
 		System.out.println("Initialized Logger");
 		log.info("Initialized Logger");
 		
-		//Creating ServerSocket
+		// Creating ServerSocket
 		ServerSocket server = new ServerSocket(port);
 		while (true) {
 			System.out.println("Waiting for Connections...");
@@ -58,11 +58,8 @@ public class Server {
 			log.info("Accepted from " + client.getInetAddress());
 			Connection c = connectTo(client);
 			
-			//Authentification process
+			// Authentification process
 			new ServerAuthentification(c);
-			
-			//c.start();
-			
 		}
 	}
 	

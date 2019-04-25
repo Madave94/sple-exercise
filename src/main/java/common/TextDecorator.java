@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 
 public class TextDecorator {
 	
-	//Pattern various methods
+	// Pattern various methods
 	Pattern startPattern = Pattern.compile("<{1}\\w+>{1}");
 	Pattern endPattern = Pattern.compile("<{1}/{1}\\w+>{1}");
 	

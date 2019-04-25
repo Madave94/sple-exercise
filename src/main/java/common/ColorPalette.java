@@ -2,7 +2,7 @@ package common;
 
 public enum ColorPalette {
 	
-	//Available Colors
+	// Available Colors
 	RESET ("\033[0m"),
 	BLACK ("\033[0;30m"),
 	RED ("\033[0;31m"),
@@ -13,7 +13,7 @@ public enum ColorPalette {
 	CYAN ("\033[0;36m"),
 	WHITE ("\033[0;37m");
 	
-	//https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
     // Reset
 	private String colorCode;
     
