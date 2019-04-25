@@ -4,7 +4,7 @@ public class GUI implements ChatLineListener, Runnable{
 	
 	// stub for GUI
 	
-	public GUI () {
+	public GUI (Client client) {
 		// TODO
 	}
 

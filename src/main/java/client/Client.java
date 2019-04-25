@@ -38,6 +38,7 @@ public class Client implements Runnable {
 		
 		// call user interface here
 		new Console(client);
+		new GUI(client);
 	}
 		
 	public Client(String host, int port) {
