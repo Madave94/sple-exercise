@@ -31,4 +31,8 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'sple.App'
+mainClassName = 'server.Server'
+
+jar {
+
+}
