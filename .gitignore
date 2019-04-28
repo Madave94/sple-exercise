@@ -9,6 +9,7 @@
 !/gradle/wrapper
 !/assignment*
 !*pdf
+!xz.xml
 #Blacklisted again
 bin
 build
