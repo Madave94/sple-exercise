@@ -10,6 +10,7 @@
 !/assignment*
 !*pdf
 !xz.xml
+!server-client.xml
 #Blacklisted again
 bin
 build

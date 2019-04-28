@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+    <properties/>
+    <struct>
+        <and abstract="true" mandatory="true" name="Chat">
+            <and abstract="true" mandatory="true" name="ServerPackage">
+                <feature mandatory="true" name="Server"/>
+                <feature mandatory="true" name="Connection"/>
+                <feature name="ServerAuthentification"/>
+                <feature name="ServerLog"/>
+            </and>
+            <and abstract="true" mandatory="true" name="CommonPackage">
+                <and abstract="true" mandatory="true" name="Message">
+                    <feature mandatory="true" name="TextMessage"/>
+                    <feature name="AuthentificationMessage"/>
+                </and>
+                <or abstract="true" name="Encryption">
+                    <feature name="ROT13"/>
+                    <feature name="Swap2Letters"/>
+                </or>
+                <and abstract="true" name="TextDecorator">
+                    <feature name="Color"/>
+                </and>
+            </and>
+            <and abstract="true" mandatory="true" name="ClientPackage">
+                <feature mandatory="true" name="Client"/>
+                <alt mandatory="true" name="ChatLineListener">
+                    <feature name="Console"/>
+                    <feature name="GUI"/>
+                </alt>
+                <feature name="ClientAuthentification"/>
+                <feature name="ClientLog"/>
+            </and>
+        </and>
+    </struct>
+    <constraints>
+        <rule>
+            <imp>
+                <var>ServerAuthentification</var>
+                <var>AuthentificationMessage</var>
+            </imp>
+        </rule>
+        <rule>
+            <imp>
+                <var>ClientAuthentification</var>
+                <conj>
+                    <var>ServerAuthentification</var>
+                    <var>AuthentificationMessage</var>
+                </conj>
+            </imp>
+        </rule>
+    </constraints>
+    <calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+    <comments/>
+    <featureOrder userDefined="false"/>
+</featureModel>
