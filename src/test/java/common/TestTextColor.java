@@ -4,13 +4,13 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-public class TestTextDecorator {
+public class TestTextColor {
 	
-	TextDecorator decorateMe;
+	TextColor decorateMe;
 	
 	@Before
 	public void initializeTests() {
-		decorateMe = new TextDecorator();
+		decorateMe = new TextColor();
 	}
 	
 	@Test

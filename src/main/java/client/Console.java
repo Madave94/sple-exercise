@@ -5,7 +5,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import common.TextDecorator;
+import common.TextColor;
 
 public class Console implements ChatLineListener,Runnable {
 	
