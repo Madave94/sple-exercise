@@ -12,12 +12,15 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+
+    // Apply the JavaFX library
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -33,6 +36,7 @@ dependencies {
 // Define the main class for the application
 mainClassName = 'server.Server'
 
-jar {
-
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls']
 }
