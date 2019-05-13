@@ -3,7 +3,7 @@ package common;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class TextColor {
+class TextColor {
 	
 	// Pattern various methods
 	Pattern startPattern = Pattern.compile("<{1}\\w+>{1}");

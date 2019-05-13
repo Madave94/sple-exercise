@@ -1,6 +1,6 @@
 package common;
 
-public class ROT13 extends Encryption{
+class ROT13 extends Encryption{
 
 	// https://stackoverflow.com/questions/8981296/rot-13-function-in-java
 	

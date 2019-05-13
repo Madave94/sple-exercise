@@ -1,6 +1,6 @@
 package common;
 
-public abstract class Encryption {
+abstract class Encryption {
 	
 	public TextMessage encrypt (TextMessage msg) {
 		String content = msg.getContent();

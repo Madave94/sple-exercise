@@ -1,6 +1,6 @@
 package common;
 
-public enum ColorPalette {
+enum ColorPalette {
 	
 	// Available Colors
 	RESET ("\033[0m"),
