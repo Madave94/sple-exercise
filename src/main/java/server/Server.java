@@ -58,8 +58,12 @@ public class Server {
 			log.info("Accepted from " + client.getInetAddress());
 			Connection c = connectTo(client);
 			
-			// Authentification process
-			new ServerAuthentification(c);
+			//#if Authentification
+//@			new ServerAuthentification(c);
+			//#else
+			c.start();
+			//#endif
+			
 		}
 	}
 	

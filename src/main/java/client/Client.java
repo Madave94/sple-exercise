@@ -21,7 +21,9 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-	private String PASSWORD;
+	//#if Authentification
+//@	private String PASSWORD;
+	//#endif
 	
 	protected Thread thread;
 	
@@ -52,7 +54,9 @@ public class Client implements Runnable {
 	}
 	
 	public Client(String host, int port, String password) {
-		setPassword(password);
+		//#if Authentification
+//@		setPassword(password);
+		//#endif
 		try {
 			System.out.println("Connecting to " + host + " (port " + port + ")...");
 			
@@ -62,8 +66,11 @@ public class Client implements Runnable {
 			this.inputStream = new ObjectInputStream((s.getInputStream()));	
 			
 			thread = new Thread(this);
+			
 			//making the handshake
-			send(PASSWORD);
+			//#if Authentification
+//@			send(PASSWORD);
+			//#endif
 			
 			thread.start();
 		} catch (Exception e) {
@@ -110,19 +117,23 @@ public class Client implements Runnable {
 			fireAddLine(((TextMessage) msg).getContent() + "\n");
 		}
 		// kick the client if the Authentification is false
-		if (msg instanceof AuthentificationMessage) {
-			try {
-				handleAuthentificationMessage(msg);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		//#if Authentification
+//@		if (msg instanceof AuthentificationMessage) {
+//@			try {
+//@				handleAuthentificationMessage(msg);
+//@			} catch (IOException e) {
+//@				e.printStackTrace();
+//@			}
+//@		}
+		//#endif
 	}
 
-	private void handleAuthentificationMessage(Object msg) throws IOException {
-		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
-		if (!hasAccess) close();
-	}
+	//#if Authentification
+//@	private void handleAuthentificationMessage(Object msg) throws IOException {
+//@		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
+//@		if (!hasAccess) close();
+//@	}
+	//#endif
 
 	public void send(String line) {
 		send(new TextMessage(line));
@@ -177,7 +188,9 @@ public class Client implements Runnable {
 		System.exit(0);
 	}
 	
-	public void setPassword(String password) {
-		this.PASSWORD = password;
-	}
+	//#if Authentification
+//@	public void setPassword(String password) {
+//@		this.PASSWORD = password;
+//@	}
+	//#endif
 }

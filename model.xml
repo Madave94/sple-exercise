@@ -19,6 +19,7 @@
                 <feature name="ServerLogging"/>
                 <feature name="ClientLogging"/>
             </or>
+            <feature name="Authentification"/>
         </and>
     </struct>
     <constraints/>
