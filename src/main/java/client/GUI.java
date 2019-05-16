@@ -1,22 +1,34 @@
 package client;
 
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class GUI extends Application implements ChatLineListener, Runnable {
 
 	protected Thread thread;
 	private Client chatClient;
+	
+	TextField textField;
+	Label label;
+	Button button;
+	String msg;
 
 	public GUI() {
 	}
@@ -36,58 +48,69 @@ public class GUI extends Application implements ChatLineListener, Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
+		msg = null;
+		try {
+			Thread thisthread = Thread.currentThread();
+			while (thread == thisthread) {
+				if (msg != null || msg != "") {
+					chatClient.send(msg);
+					msg = "";
+				}
+			}
+		} finally {
+			System.out.println("GUI thread closed.");
+			thread = null;
+		}
 	}
 
 	@Override
 	public void newChatLine(String line) {
-		// TODO Auto-generated method stub
-		// Here happens a System.out.println in the Console
-	}
-
-	public String testButton(String line) {
-		return line;
+		label.setText(label.getText() + "\n" + line);
 	}
 
 	@Override
 	public void start(Stage stage) {
-		Group root = new Group();
-		ObservableList list = root.getChildren();
-
 		String javaVersion = System.getProperty("java.version");
 		String javafxVersion = System.getProperty("javafx.version");
 
-		// Pane
-
 		// Control
-		Label label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+		label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
 
-		Circle circle = new Circle();
-		circle.setCenterX(300.0f);
-		circle.setCenterY(135.0f);
-		circle.setRadius(25.0f);
-		circle.setFill(Color.AQUA);
+		button = new Button("send");
+		button.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
 
-		TextField textField = new TextField();
-		textField.setLayoutX(50);
-		textField.setLayoutY(100);
+		textField = new TextField();
 
-		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+		EventHandler<MouseEvent> eventHandlerMouse = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				String toPrint = testButton(textField.getText());
-				label.setText(toPrint);
-				circle.setFill(Color.DARKSLATEBLUE);
+				msg = textField.getText();
+				textField.setText("");
 			}
 		};
+		
+		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		    @Override
+		    public void handle(KeyEvent keyEvent) {
+		        if (keyEvent.getCode() == KeyCode.ENTER)  {
+		        	msg = textField.getText();
+					textField.setText("");
+		        }
+		    }
+		});
+		
+		button.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandlerMouse);
+		
+		HBox hbox = new HBox(textField, button);
+		HBox.setHgrow(textField, Priority.ALWAYS);
+		hbox.setSpacing(10);
+		hbox.setMinHeight(hbox.getPrefHeight());
+		
+		BorderPane borderPane = new BorderPane();
+		borderPane.setBottom(hbox);
+		borderPane.setTop(label);
 
-		circle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-
-		list.add(textField);
-		list.add(label);
-		list.add(circle);
-		Scene scene = new Scene(root, 640, 480);
+		Scene scene = new Scene(borderPane, 640, 480);
 
 		stage.setScene(scene);
 		stage.setTitle("Chat-App");
