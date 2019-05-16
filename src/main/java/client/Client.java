@@ -10,7 +10,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import common.AuthentificationMessage;
+//#if Authentification
+//@import common.AuthentificationMessage;
+//#endif
+
 import common.TextMessage;
 
 /**

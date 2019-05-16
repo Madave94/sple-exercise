@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.*;
 
-import common.AuthentificationMessage;
+//#if Authentification
+//@import common.AuthentificationMessage;
+//#endif
 
 /**
  * server's main class. accepts incoming connections and allows broadcasting
