@@ -1,3 +1,4 @@
+//#if CLI
 package client;
 
 import java.io.BufferedReader;
@@ -53,3 +54,4 @@ public class Console implements ChatLineListener,Runnable {
 		
 	}
 }
+//#endif

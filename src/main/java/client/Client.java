@@ -37,8 +37,13 @@ public class Client implements Runnable {
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
 		// call user interface here
-		// new Console(client);
-		new GUI(client);
+		//#if CLI
+		new Console(client);
+		//#endif
+		
+		//#if GUI
+//@		new GUI(client);
+		//#endif
 	}
 		
 	public Client(String host, int port) {
