@@ -16,6 +16,10 @@ import java.util.Iterator;
 
 import common.TextMessage;
 
+//#if TextDecorator || Rot13 || Swap2Letters
+import common.TextDecorator;
+//#endif
+
 /**
  * simple chat client
  */
@@ -43,11 +47,11 @@ public class Client implements Runnable {
 		
 		// call user interface here
 		//#if CLI
-		new Console(client);
+//@		new Console(client);
 		//#endif
 		
 		//#if GUI
-//@		new GUI(client);
+		new GUI(client);
 		//#endif
 	}
 		
@@ -139,7 +143,11 @@ public class Client implements Runnable {
 	//#endif
 
 	public void send(String line) {
-		send(new TextMessage(line));
+		//#if TextDecorator || Rot13 || Swap2Letters
+		send(new TextDecorator(line));
+		//#else
+//@		send(new TextMessage(line));
+		//#endif
 	}
 
 	public void send(TextMessage msg) {

@@ -1,6 +1,7 @@
+//#if TextColor || Rot13 || Swap2Letters
 package common;
 
-class TextDecorator extends TextMessage{
+public class TextDecorator extends TextMessage{
 
 	private static final long serialVersionUID = 1L;
 	private String decorated_content;
@@ -9,7 +10,7 @@ class TextDecorator extends TextMessage{
 		super(content);
 		decorated_content = content;
 		
-		// Apply Color
+		//if 
 		decorated_content = new TextColor().decorateText(decorated_content);
 		
 		// Apply Encryption
@@ -29,3 +30,4 @@ class TextDecorator extends TextMessage{
 	
 
 }
+//#endif

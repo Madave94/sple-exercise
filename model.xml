@@ -5,7 +5,7 @@
         <and abstract="true" mandatory="true" name="spleexercise">
             <feature mandatory="true" name="Base"/>
             <and mandatory="true" name="TextMessage">
-                <feature name="TextDecorator"/>
+                <feature name="TextColor"/>
             </and>
             <alt abstract="true" name="Encryption">
                 <feature name="Rot13"/>
@@ -15,10 +15,9 @@
                 <feature name="GUI"/>
                 <feature name="CLI"/>
             </alt>
-            <or abstract="true" name="Logging">
+            <and abstract="true" name="Logging">
                 <feature name="ServerLogging"/>
-                <feature name="ClientLogging"/>
-            </or>
+            </and>
             <feature name="Authentification"/>
         </and>
     </struct>

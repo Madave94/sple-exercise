@@ -111,16 +111,18 @@ public class Server {
 		connections.remove(connection);
 	}
 	
-	public void close() {
-		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
-		log.warning("Kicked all clients.");
-		synchronized (connections) {
-			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
-				Connection connection = (Connection) iterator.next();
-				connection.send(hasAccess);
-				removeConnection(connection);
-			}
-		}
-	}
+	//#if Authentification
+//@	public void close() {
+//@		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+//@		log.warning("Kicked all clients.");
+//@		synchronized (connections) {
+//@			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
+//@				Connection connection = (Connection) iterator.next();
+//@				connection.send(hasAccess);
+//@				removeConnection(connection);
+//@			}
+//@		}
+//@	}
+	//#endif
 
 }

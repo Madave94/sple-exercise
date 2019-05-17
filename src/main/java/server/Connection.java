@@ -7,7 +7,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import common.AuthentificationMessage;
+import common.TextDecorator;
+
+//#if Authentification
+//@import common.AuthentificationMessage;
+//#endif
+
 import common.TextMessage;
 
 /**
@@ -74,10 +79,12 @@ public class Connection extends Thread {
 			String incomingMessage = ((TextMessage) msg).getContent();
 			server.broadcast(name + " - " + incomingMessage);
 		}
-		if (msg instanceof AuthentificationMessage) {
-			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
-			System.out.println("Authentification was " + incomingMessage);
-		}
+		//#if Authentification
+//@		if (msg instanceof AuthentificationMessage) {
+//@			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
+//@			System.out.println("Authentification was " + incomingMessage);
+//@		}
+		//#endif
 	}
 
 	/**
@@ -87,7 +94,11 @@ public class Connection extends Thread {
 	 *            text of the message
 	 */
 	public void send(String line) {
-		send(new TextMessage(line));
+		//#if TextDecorator || Rot13 || Swap2Letters
+		send(new TextDecorator(line));
+		//#else
+//@		send(new TextMessage(line));
+		//#endif
 	}
 
 	public void send(TextMessage msg) {
@@ -100,15 +111,17 @@ public class Connection extends Thread {
 		}
 	}
 	
-	public void send(AuthentificationMessage msg) {
-		try {
-			synchronized (outputStream) {
-				outputStream.writeObject(msg);
-			}
-			outputStream.flush();
-		} catch (IOException ex) {
-		}
-	}
+	//#if Authentification
+//@	public void send(AuthentificationMessage msg) {
+//@		try {
+//@			synchronized (outputStream) {
+//@				outputStream.writeObject(msg);
+//@			}
+//@			outputStream.flush();
+//@		} catch (IOException ex) {
+//@		}
+//@	}
+	//#endif
 	
 	public void close() throws IOException {
 		if (outputStream != null) outputStream.close();
