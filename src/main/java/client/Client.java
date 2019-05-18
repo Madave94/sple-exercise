@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 //#if Authentification
-//@import common.AuthentificationMessage;
+import common.AuthentificationMessage;
 //#endif
 
 import common.TextMessage;
 
-//#if TextDecorator || Rot13 || Swap2Letters
-import common.TextDecorator;
+//#if TextColor || Rot13 || Swap2Letters
+//@import common.TextDecorator;
 //#endif
 
 /**
@@ -29,7 +29,7 @@ public class Client implements Runnable {
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	//#if Authentification
-//@	private String PASSWORD;
+	private String PASSWORD;
 	//#endif
 	
 	protected Thread thread;
@@ -62,7 +62,7 @@ public class Client implements Runnable {
 	
 	public Client(String host, int port, String password) {
 		//#if Authentification
-//@		setPassword(password);
+		setPassword(password);
 		//#endif
 		try {
 			System.out.println("Connecting to " + host + " (port " + port + ")...");
@@ -76,7 +76,7 @@ public class Client implements Runnable {
 			
 			//making the handshake
 			//#if Authentification
-//@			send(PASSWORD);
+			send(PASSWORD);
 			//#endif
 			
 			thread.start();
@@ -125,28 +125,28 @@ public class Client implements Runnable {
 		}
 		// kick the client if the Authentification is false
 		//#if Authentification
-//@		if (msg instanceof AuthentificationMessage) {
-//@			try {
-//@				handleAuthentificationMessage(msg);
-//@			} catch (IOException e) {
-//@				e.printStackTrace();
-//@			}
-//@		}
+		if (msg instanceof AuthentificationMessage) {
+			try {
+				handleAuthentificationMessage(msg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		//#endif
 	}
 
 	//#if Authentification
-//@	private void handleAuthentificationMessage(Object msg) throws IOException {
-//@		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
-//@		if (!hasAccess) close();
-//@	}
+	private void handleAuthentificationMessage(Object msg) throws IOException {
+		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
+		if (!hasAccess) close();
+	}
 	//#endif
 
 	public void send(String line) {
-		//#if TextDecorator || Rot13 || Swap2Letters
-		send(new TextDecorator(line));
+		//#if TextColor || Rot13 || Swap2Letters
+//@		send(new TextDecorator(line));
 		//#else
-//@		send(new TextMessage(line));
+		send(new TextMessage(line));
 		//#endif
 	}
 
@@ -200,8 +200,14 @@ public class Client implements Runnable {
 	}
 	
 	//#if Authentification
-//@	public void setPassword(String password) {
-//@		this.PASSWORD = password;
-//@	}
+	public void setPassword(String password) {
+		this.PASSWORD = password;
+	}
+	
+	public void printListener() {
+		for (ChatLineListener listener: listeners) {
+			System.out.println(listener.toString());
+		}
+	}
 	//#endif
 }

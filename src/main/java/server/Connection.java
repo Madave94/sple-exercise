@@ -7,10 +7,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import common.TextDecorator;
+//#if TextColor || Rot13 || Swap2Letters
+//@import common.TextDecorator;
+//#endif
 
 //#if Authentification
-//@import common.AuthentificationMessage;
+import common.AuthentificationMessage;
 //#endif
 
 import common.TextMessage;
@@ -80,10 +82,10 @@ public class Connection extends Thread {
 			server.broadcast(name + " - " + incomingMessage);
 		}
 		//#if Authentification
-//@		if (msg instanceof AuthentificationMessage) {
-//@			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
-//@			System.out.println("Authentification was " + incomingMessage);
-//@		}
+		if (msg instanceof AuthentificationMessage) {
+			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
+			System.out.println("Authentification was " + incomingMessage);
+		}
 		//#endif
 	}
 
@@ -95,9 +97,9 @@ public class Connection extends Thread {
 	 */
 	public void send(String line) {
 		//#if TextDecorator || Rot13 || Swap2Letters
-		send(new TextDecorator(line));
+//@		send(new TextDecorator(line));
 		//#else
-//@		send(new TextMessage(line));
+		send(new TextMessage(line));
 		//#endif
 	}
 
@@ -112,15 +114,15 @@ public class Connection extends Thread {
 	}
 	
 	//#if Authentification
-//@	public void send(AuthentificationMessage msg) {
-//@		try {
-//@			synchronized (outputStream) {
-//@				outputStream.writeObject(msg);
-//@			}
-//@			outputStream.flush();
-//@		} catch (IOException ex) {
-//@		}
-//@	}
+	public void send(AuthentificationMessage msg) {
+		try {
+			synchronized (outputStream) {
+				outputStream.writeObject(msg);
+			}
+			outputStream.flush();
+		} catch (IOException ex) {
+		}
+	}
 	//#endif
 	
 	public void close() throws IOException {

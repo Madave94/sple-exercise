@@ -5,10 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.logging.*;
+
+//#if ServerLogging
+//@import java.util.logging.*;
+//#endif
 
 //#if Authentification
-//@import common.AuthentificationMessage;
+import common.AuthentificationMessage;
 //#endif
 
 /**
@@ -20,7 +23,10 @@ public class Server {
 	 * list of all known connections
 	 */
 	protected HashSet<Connection> connections = new HashSet<Connection>();
-	private static final Logger log = Logger.getLogger(Server.class.getName());
+	
+	//#if ServerLogging
+//@	private static final Logger log = Logger.getLogger(Server.class.getName());
+	//#endif
 
 	public static void main(String args[]) throws IOException {
 		if (args.length == 0) 
@@ -42,28 +48,39 @@ public class Server {
 	 */
 	public Server(int port) throws IOException {
 		// Setting logger
-		log.setUseParentHandlers(false);
-		Handler handler = new FileHandler( "log.xml" );
-		log.addHandler(handler);
+		//#if ServerLogging
+//@		log.setUseParentHandlers(false);
+//@		Handler handler = new FileHandler( "log.xml" );
+//@		log.addHandler(handler);
+//@		log.info("Initialized Logger");
+		//#endif
 
 		System.out.println("Initialized Logger");
-		log.info("Initialized Logger");
+		
 		
 		// Creating ServerSocket
 		ServerSocket server = new ServerSocket(port);
 		while (true) {
 			System.out.println("Waiting for Connections...");
-			log.info("Waiting for Connections...");
+			
+			//#if ServerLogging
+//@			log.info("Waiting for Connections...");
+			//#endif
+			
 			Socket client = server.accept();			
 			
 			System.out.println("Accepted from " + client.getInetAddress());
-			log.info("Accepted from " + client.getInetAddress());
+			
+			//#if ServerLogging
+//@			log.info("Accepted from " + client.getInetAddress());
+			//#endif
+			
 			Connection c = connectTo(client);
 			
 			//#if Authentification
-//@			new ServerAuthentification(c);
+			new ServerAuthentification(c);
 			//#else
-			c.start();
+//@			c.start();
 			//#endif
 			
 		}
@@ -78,7 +95,10 @@ public class Server {
 	 *         this socket
 	 */
 	public Connection connectTo(Socket socket) {
-		log.info("Connected the client: " + socket.getInetAddress());
+		//#if ServerLogging
+//@		log.info("Connected the client: " + socket.getInetAddress());
+		//#endif
+		
 		Connection connection = new Connection(socket, this);
 		connections.add(connection);
 		return connection;
@@ -91,7 +111,10 @@ public class Server {
 	 *            content of the message
 	 */
 	public void broadcast(String text) {
-		log.info("Broadcast message: " + text);
+		//#if ServerLogging
+//@		log.info("Broadcast message: " + text);
+		//#endif
+		
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
@@ -107,22 +130,29 @@ public class Server {
 	 *            connection to remove
 	 */
 	public void removeConnection(Connection connection) {
-		log.info("Removed connection: " + connection.socket.getInetAddress());
+		//#if ServerLogging
+//@		log.info("Removed connection: " + connection.socket.getInetAddress());
+		//#endif
+		
 		connections.remove(connection);
 	}
 	
 	//#if Authentification
-//@	public void close() {
-//@		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+	public void close() {
+		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+		
+		//#if ServerLogging
 //@		log.warning("Kicked all clients.");
-//@		synchronized (connections) {
-//@			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
-//@				Connection connection = (Connection) iterator.next();
-//@				connection.send(hasAccess);
-//@				removeConnection(connection);
-//@			}
-//@		}
-//@	}
+		//#endif
+		
+		synchronized (connections) {
+			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
+				Connection connection = (Connection) iterator.next();
+				connection.send(hasAccess);
+				removeConnection(connection);
+			}
+		}
+	}
 	//#endif
 
 }
