@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 //#if ServerLogging
-//@import java.util.logging.*;
+import java.util.logging.*;
 //#endif
 
 //#if Authentification
@@ -25,7 +25,7 @@ public class Server {
 	protected HashSet<Connection> connections = new HashSet<Connection>();
 	
 	//#if ServerLogging
-//@	private static final Logger log = Logger.getLogger(Server.class.getName());
+	private static final Logger log = Logger.getLogger(Server.class.getName());
 	//#endif
 
 	public static void main(String args[]) throws IOException {
@@ -49,10 +49,10 @@ public class Server {
 	public Server(int port) throws IOException {
 		// Setting logger
 		//#if ServerLogging
-//@		log.setUseParentHandlers(false);
-//@		Handler handler = new FileHandler( "log.xml" );
-//@		log.addHandler(handler);
-//@		log.info("Initialized Logger");
+		log.setUseParentHandlers(false);
+		Handler handler = new FileHandler( "log.xml" );
+		log.addHandler(handler);
+		log.info("Initialized Logger");
 		//#endif
 
 		System.out.println("Initialized Logger");
@@ -64,7 +64,7 @@ public class Server {
 			System.out.println("Waiting for Connections...");
 			
 			//#if ServerLogging
-//@			log.info("Waiting for Connections...");
+			log.info("Waiting for Connections...");
 			//#endif
 			
 			Socket client = server.accept();			
@@ -72,7 +72,7 @@ public class Server {
 			System.out.println("Accepted from " + client.getInetAddress());
 			
 			//#if ServerLogging
-//@			log.info("Accepted from " + client.getInetAddress());
+			log.info("Accepted from " + client.getInetAddress());
 			//#endif
 			
 			Connection c = connectTo(client);
@@ -96,7 +96,7 @@ public class Server {
 	 */
 	public Connection connectTo(Socket socket) {
 		//#if ServerLogging
-//@		log.info("Connected the client: " + socket.getInetAddress());
+		log.info("Connected the client: " + socket.getInetAddress());
 		//#endif
 		
 		Connection connection = new Connection(socket, this);
@@ -112,7 +112,7 @@ public class Server {
 	 */
 	public void broadcast(String text) {
 		//#if ServerLogging
-//@		log.info("Broadcast message: " + text);
+		log.info("Broadcast message: " + text);
 		//#endif
 		
 		synchronized (connections) {
@@ -131,7 +131,7 @@ public class Server {
 	 */
 	public void removeConnection(Connection connection) {
 		//#if ServerLogging
-//@		log.info("Removed connection: " + connection.socket.getInetAddress());
+		log.info("Removed connection: " + connection.socket.getInetAddress());
 		//#endif
 		
 		connections.remove(connection);
@@ -142,7 +142,7 @@ public class Server {
 		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
 		
 		//#if ServerLogging
-//@		log.warning("Kicked all clients.");
+		log.warning("Kicked all clients.");
 		//#endif
 		
 		synchronized (connections) {

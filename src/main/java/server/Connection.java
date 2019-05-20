@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 //#if TextColor || Rot13 || Swap2Letters
-//@import common.TextDecorator;
+import common.TextDecorator;
 //#endif
 
 //#if Authentification
@@ -96,10 +96,10 @@ public class Connection extends Thread {
 	 *            text of the message
 	 */
 	public void send(String line) {
-		//#if TextDecorator || Rot13 || Swap2Letters
-//@		send(new TextDecorator(line));
+		//#if TextColor || Rot13 || Swap2Letters
+		send(new TextDecorator(line));
 		//#else
-		send(new TextMessage(line));
+//@		send(new TextMessage(line));
 		//#endif
 	}
 

@@ -17,7 +17,7 @@ import common.AuthentificationMessage;
 import common.TextMessage;
 
 //#if TextColor || Rot13 || Swap2Letters
-//@import common.TextDecorator;
+import common.TextDecorator;
 //#endif
 
 /**
@@ -47,11 +47,11 @@ public class Client implements Runnable {
 		
 		// call user interface here
 		//#if CLI
-//@		new Console(client);
+		new Console(client);
 		//#endif
 		
 		//#if GUI
-		new GUI(client);
+//@		new GUI(client);
 		//#endif
 	}
 		
@@ -144,9 +144,9 @@ public class Client implements Runnable {
 
 	public void send(String line) {
 		//#if TextColor || Rot13 || Swap2Letters
-//@		send(new TextDecorator(line));
+		send(new TextDecorator(line));
 		//#else
-		send(new TextMessage(line));
+//@		send(new TextMessage(line));
 		//#endif
 	}
 
