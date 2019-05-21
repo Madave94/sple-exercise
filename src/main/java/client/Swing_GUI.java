@@ -39,8 +39,7 @@
 //@		// register listener so that we are informed whenever a new chat message
 //@		// is received (observer pattern)
 //@		chatClient.addLineListener(this);
-//@		this.chatClient = chatClient;	
-//@		
+//@		this.chatClient = chatClient;		
 //@		frame = new JFrame("ChatApp");		
 //@		
 //@		display();
@@ -70,7 +69,8 @@
 //@        southPanel.add(messageBox, left);
 //@        southPanel.add(sendMessage, right);
 //@
-//@        sendMessage.addActionListener(new sendMessageButtonListener());
+//@        messageBox.addActionListener(new sendMessageListener());
+//@        sendMessage.addActionListener(new sendMessageListener());
 //@        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //@        frame.setSize(500, 300);
 //@        frame.setMinimumSize(new Dimension(500, 300));
@@ -82,8 +82,7 @@
 //@		
 //@	}
 //@	
-//@	
-//@	class sendMessageButtonListener implements ActionListener {
+//@	class sendMessageListener implements ActionListener {
 //@	    public void actionPerformed(ActionEvent event) {
 //@	    	String msg = messageBox.getText();
 //@	    	chatClient.send(msg);
