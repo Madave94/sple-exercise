@@ -51,7 +51,7 @@ public class Client implements Runnable {
 		//#endif
 		
 		//#if GUI
-//@		new GUI(client);
+//@		new Swing_GUI(client);
 		//#endif
 	}
 		
