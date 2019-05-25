@@ -1,4 +1,3 @@
-//#if Authentification
 package common;
 
 import java.io.Serializable;
@@ -19,4 +18,3 @@ public class AuthentificationMessage implements Serializable{
 	}
 
 }
-//#endif 

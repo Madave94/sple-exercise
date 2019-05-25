@@ -1,4 +1,3 @@
-//#if Rot13 || Swap2Letters
 package common;
 
 abstract class Encryption {
@@ -24,4 +23,3 @@ abstract class Encryption {
 	}
 
 }
-//#endif

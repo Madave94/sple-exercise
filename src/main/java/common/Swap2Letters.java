@@ -1,4 +1,3 @@
-//#if Swap2Letters
 package common;
 
 class Swap2Letters extends Encryption{
@@ -20,4 +19,3 @@ class Swap2Letters extends Encryption{
 	}
 
 }
-//#endif

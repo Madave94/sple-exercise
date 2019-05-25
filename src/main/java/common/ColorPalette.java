@@ -1,4 +1,3 @@
-//#if TextColor && CLI
 package common;
 
 enum ColorPalette {
@@ -26,4 +25,3 @@ enum ColorPalette {
     	return colorCode;
     }
 }
-//#endif

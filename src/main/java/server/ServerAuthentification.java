@@ -1,4 +1,3 @@
-//#if Authentification
 package server;
 
 import java.io.*;
@@ -50,4 +49,3 @@ class ServerAuthentification implements Runnable{
 	}
 	
 }
-//#endif

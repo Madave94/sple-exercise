@@ -7,13 +7,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-//#if TextColor || Rot13 || Swap2Letters
 import common.TextDecorator;
-//#endif
 
-//#if Authentification
 import common.AuthentificationMessage;
-//#endif
 
 import common.TextMessage;
 
@@ -44,6 +40,7 @@ public class Connection extends Thread {
 	 */
 	public void run() {
 		String clientName = socket.getInetAddress().toString();
+		//if (clientName.equals("/127.0.0.1")) clientName = clientName + " : A";
 		try {
 			server.broadcast(clientName + " has joined.");
 			Object msg = null;
@@ -81,12 +78,10 @@ public class Connection extends Thread {
 			String incomingMessage = ((TextMessage) msg).getContent();
 			server.broadcast(name + " - " + incomingMessage);
 		}
-		//#if Authentification
 		if (msg instanceof AuthentificationMessage) {
 			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
 			System.out.println("Authentification was " + incomingMessage);
 		}
-		//#endif
 	}
 
 	/**
@@ -96,11 +91,8 @@ public class Connection extends Thread {
 	 *            text of the message
 	 */
 	public void send(String line) {
-		//#if TextColor || Rot13 || Swap2Letters
 		send(new TextDecorator(line));
-		//#else
-//@		send(new TextMessage(line));
-		//#endif
+		//send(new TextMessage(line));
 	}
 
 	public void send(TextMessage msg) {
@@ -113,7 +105,6 @@ public class Connection extends Thread {
 		}
 	}
 	
-	//#if Authentification
 	public void send(AuthentificationMessage msg) {
 		try {
 			synchronized (outputStream) {
@@ -123,7 +114,6 @@ public class Connection extends Thread {
 		} catch (IOException ex) {
 		}
 	}
-	//#endif
 	
 	public void close() throws IOException {
 		if (outputStream != null) outputStream.close();
