@@ -11,6 +11,8 @@ public class TextDecorator extends TextMessage{
 		
 		decorated_content = new TextColor().decorateText(decorated_content);
 		
+		decorated_content = SpamFilter.getInstance().filter(decorated_content);
+		
 		decorated_content = new Swap2Letters().encrypt(decorated_content);
 
 		//decorated_content = new ROT13().encrypt(decorated_content);
