@@ -13,9 +13,13 @@ public class SpamFilter {
 	}
 		
 	String filter() {
-		Pattern p = Pattern.compile("fuck");
-		Matcher m = p.matcher(message);
-		String result = m.replaceAll("****");
+		String result = message;
+		String substitue = "*";
+		for (String word: badWords) {
+			Pattern p = Pattern.compile(word);
+			Matcher m = p.matcher(result);
+			result = m.replaceAll(substitue.repeat(word.length()));
+		}
 		return result;
 	}
 
