@@ -5,25 +5,22 @@ import static org.junit.Assert.*;
 
 public class TestEncryption {
 	
-	//#if Rot13
-//@	@Test
-//@	public void testROT13encryption() {
-//@		String encryptMe = "Hallo wie gehts!";
-//@		String result = new ROT13().encrypt(encryptMe);
-//@		String expected = "Unyyb jvr trugf!";
-//@		assertEquals(true, expected.equals(result));
-//@	}
-//@	
-//@	@Test
-//@	public void testROT13decryption() {
-//@		String decryptMe = "Zve trugf thg!";
-//@		String result = new ROT13().decrypt(decryptMe);
-//@		String expected = "Mir gehts gut!";
-//@		assertEquals(true, expected.equals(result));
-//@	}
-	//#endif
+	@Test
+	public void testROT13encryption() {
+		String encryptMe = "Hallo wie gehts!";
+		String result = new ROT13().encrypt(encryptMe);
+		String expected = "Unyyb jvr trugf!";
+		assertEquals(true, expected.equals(result));
+	}
 	
-	//#if Swap2Letters
+	@Test
+	public void testROT13decryption() {
+		String decryptMe = "Zve trugf thg!";
+		String result = new ROT13().decrypt(decryptMe);
+		String expected = "Mir gehts gut!";
+		assertEquals(true, expected.equals(result));
+	}
+	
 	@Test
 	public void testSwapEncryption() {
 		String encryptMe = "Hallo wie gehts!";
@@ -39,11 +36,10 @@ public class TestEncryption {
 		String expected = "Mir gehts gut!";
 		assertEquals(true, expected.equals(result));		
 	}
-	//#endif
 	
 	/*
 	 * This test don't work with the encryption included.
-	 * 
+	 */
 	@Test
 	public void testEncryptedTextMessage() {
 		TextMessage msg = new TextMessage("Codiere mich.");
@@ -59,6 +55,6 @@ public class TestEncryption {
 		TextMessage expected = new TextMessage("Encode mich.");
 		assertEquals(true, expected.equals(result));		
 	}
-	*/
+	
 
 }

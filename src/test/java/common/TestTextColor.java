@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 public class TestTextColor {
 	
-	//#if CLI && TextColor
 	TextColor decorateMe;
 	
 	@Before
@@ -40,6 +39,5 @@ public class TestTextColor {
 		String result = decorateMe.decorateText(message);
 		assertEquals(true, expected.equals(result));
 	}
-	//#endif
 
 }
