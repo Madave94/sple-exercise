@@ -34,7 +34,6 @@ public class Javafx_GUI extends Application implements ChatLineListener {
 		// is received (observer pattern)
 		
 		chatClient.addLineListener(this);
-		chatClient.printListener();
 		this.chatClient = chatClient;	
 		
 		launch();
