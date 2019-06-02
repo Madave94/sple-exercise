@@ -1,6 +1,6 @@
 package common;
 
-class Swap2Letters extends Encryption{
+public class Swap2Letters extends Encryption{
 
 	@Override
 	public String encrypt(String msg) {

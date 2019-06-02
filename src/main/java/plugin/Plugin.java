@@ -14,5 +14,17 @@ public class Plugin extends PluginConfig{
 		}
 		return instance;
 	}
+	
+	public EncryptionPlugin getEncryptionPlugin() {
+		return encryptionPlugin;
+	}
+	
+	public SpamFilterPlugin getSpamFilterPlugin() {
+		return spamFilterPlugin;
+	}
+	
+	public TextColorPlugin getTextColorPlugin() {
+		return textColorPlugin;
+	}
 
 }
