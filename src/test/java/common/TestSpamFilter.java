@@ -10,7 +10,7 @@ public class TestSpamFilter {
 	public void spamTest1() {
 		String message = "fuck this, man!";
 		String expected = "**** this, man!";
-		String result = new SpamFilter(message).filter();
+		String result = SpamFilter.getInstance().filter(message);
 		assertEquals(true, expected.equals(result));
 	}
 	
@@ -18,7 +18,7 @@ public class TestSpamFilter {
 	public void spamTest2() {
 		String message = "fuck this shit, man!";
 		String expected = "**** this ****, man!";
-		String result = new SpamFilter(message).filter();
+		String result = SpamFilter.getInstance().filter(message);
 		assertEquals(true, expected.equals(result));
 	}
 	
@@ -26,7 +26,7 @@ public class TestSpamFilter {
 	public void spamTest3() {
 		String message = "you are an idiot!";
 		String expected = "you are an *****!";
-		String result = new SpamFilter(message).filter();
+		String result = SpamFilter.getInstance().filter(message);
 		assertEquals(true, expected.equals(result));
 	}
 
