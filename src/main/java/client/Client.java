@@ -51,9 +51,9 @@ public class Client implements Runnable{
 
 	}
 	
-	public Client(String args[], AuthentificationPlugin authentificationPlugin, ChatLineListenerPlugin chatLineListener) {
-		this.authentificationPlugin = authentificationPlugin;
-		this.chatLineListenerPlugin = chatLineListenerPlugin;
+	public Client(String args[], AuthentificationPlugin authentificationPlugin, ChatLineListenerPlugin chatLineListenerPlugin) {
+		Client.authentificationPlugin = authentificationPlugin;
+		Client.chatLineListenerPlugin = chatLineListenerPlugin;
 		launcher(args);
 	}
 		
