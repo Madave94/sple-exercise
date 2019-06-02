@@ -6,7 +6,7 @@ import common.AuthentificationMessage;
 import common.TextMessage;
 
 // package private
-class ServerAuthentification implements Runnable{
+public class ServerAuthentification implements Runnable{
 	static private final String PASSWORD = "hodor";
 	Connection connection;
 	protected ObjectInputStream inputStream;

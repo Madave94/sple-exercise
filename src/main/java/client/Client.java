@@ -22,10 +22,11 @@ import plugin.*;
 /**
  * simple chat client
  */
-public class Client implements Runnable, ClientPlugin {
+public class Client implements Runnable{
 	
 	// Initialize Plugins
 	private static ChatLineListenerPlugin chatLineListenerPlugin;
+	private static AuthentificationPlugin authentificationPlugin;
 	
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
@@ -45,29 +46,23 @@ public class Client implements Runnable, ClientPlugin {
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
-		
-		chatLineListenerPlugin.getChatLineListener(client);
+		if (chatLineListenerPlugin == null) new Console(client);
+		else chatLineListenerPlugin.getChatLineListener(client);
 
 	}
 	
-	public Client(String args[]) {
+	public Client(String args[], AuthentificationPlugin authentificationPlugin, ChatLineListenerPlugin chatLineListener) {
+		this.authentificationPlugin = authentificationPlugin;
+		this.chatLineListenerPlugin = chatLineListenerPlugin;
 		launcher(args);
 	}
 		
 	public Client(String host, int port) {
 		// Using default correct password
-		// Using default ConsolPlugin
-		this(host, port, "hodor", new ConsolPlugin());
+		this(host, port, "hodor");
 	}
 	
 	public Client(String host, int port, String password) {
-		// Using default ConsolPlugin
-		this(host, port, password, new ConsolPlugin());
-	}
-	
-	public Client(String host, int port, String password, ChatLineListenerPlugin chatLineListenerPlugin) {
-
-		this.chatLineListenerPlugin = chatLineListenerPlugin;
 		
 		setPassword(password);
 
@@ -81,9 +76,8 @@ public class Client implements Runnable, ClientPlugin {
 			
 			thread = new Thread(this);
 			
-			//making the handshake
-			send(PASSWORD);
-
+			if (authentificationPlugin != null) 
+				authentificationPlugin.sendPassword(this, PASSWORD);
 			
 			thread.start();
 		} catch (Exception e) {
@@ -207,10 +201,5 @@ public class Client implements Runnable, ClientPlugin {
 		for (ChatLineListener listener: listeners) {
 			System.out.println(listener.toString());
 		}
-	}
-
-	@Override
-	public Client getClient() {
-		return this;
 	}
 }

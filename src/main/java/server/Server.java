@@ -9,11 +9,15 @@ import java.util.Iterator;
 import java.util.logging.*;
 
 import common.AuthentificationMessage;
+import plugin.AuthentificationPlugin;
 
 /**
  * server's main class. accepts incoming connections and allows broadcasting
  */
 public class Server {
+	
+	// initialize Plugins
+	AuthentificationPlugin authentificationPlugin;
 
 	/**
 	 * list of all known connections
@@ -45,11 +49,18 @@ public class Server {
 	 *            port to listen on
 	 * @throws IOException 
 	 */
-	public Server(String args[]) throws IOException {
+	public Server(String args[], AuthentificationPlugin authentificationPlugin) throws IOException {
+		this.authentificationPlugin = authentificationPlugin;
 		launcher(args);
 	}
 	
 	public Server(int port) throws IOException {
+		this(port, null);
+	}
+	
+	public Server(int port, AuthentificationPlugin authentificationPlugin) throws IOException {
+		this.authentificationPlugin = authentificationPlugin;
+		
 		// Setting logger
 		log.setUseParentHandlers(false);
 		Handler handler = new FileHandler( "log.xml" );
@@ -74,9 +85,8 @@ public class Server {
 			
 			Connection c = connectTo(client);
 			
-			new ServerAuthentification(c);
-
-			//c.start();
+			if (authentificationPlugin == null) c.start();
+			else authentificationPlugin.getConnectionBlocker(c);
 		}
 	}
 	

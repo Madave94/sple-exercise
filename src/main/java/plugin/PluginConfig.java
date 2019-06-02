@@ -4,21 +4,18 @@ public abstract class PluginConfig {
 	
 	static PluginConfig plugin;
 	
-	AuthentificationPlugin authentificationPlugin;
-	ChatLineListenerPlugin chatLineListenerPlugin;
-	EncryptionPlugin encryptionPlugin;
-	LoggingPlugin loggingPlugin;
-	SpamFilterPlugin spamFilterPlugin;
-	TextColorPlugin textColorPlugin;
+	static AuthentificationPlugin authentificationPlugin;
+	static ChatLineListenerPlugin chatLineListenerPlugin;
+	static EncryptionPlugin encryptionPlugin;
+	static LoggingPlugin loggingPlugin;
+	static SpamFilterPlugin spamFilterPlugin;
+	static TextColorPlugin textColorPlugin;
 	
 	
 	PluginConfig() {
 		// Set Config here
 		// mandatory feature
-		chatLineListenerPlugin = new ConsolPlugin();
-		if (chatLineListenerPlugin == null) {
-			chatLineListenerPlugin = new ConsolPlugin();
-		}
+		chatLineListenerPlugin = null;
 		
 		// optional features
 		authentificationPlugin = null;
