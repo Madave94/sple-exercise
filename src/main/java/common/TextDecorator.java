@@ -1,6 +1,5 @@
 package common;
 
-import plugin.EncryptionPlugin;
 import plugin.Plugin;
 
 public class TextDecorator extends TextMessage{
@@ -12,7 +11,10 @@ public class TextDecorator extends TextMessage{
 		super(content);
 		decorated_content = content;
 		
-		decorated_content = new TextColor().decorateText(decorated_content);
+		if (Plugin.getInstance().getTextColorPlugin() != null)
+		decorated_content = Plugin.getInstance()
+								.getTextColorPlugin()
+								.addColor(decorated_content);
 		
 		if (Plugin.getInstance().getSpamFilterPlugin() != null)
 		decorated_content =  Plugin.getInstance()
