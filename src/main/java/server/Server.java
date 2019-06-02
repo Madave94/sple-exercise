@@ -23,6 +23,10 @@ public class Server {
 	private static final Logger log = Logger.getLogger(Server.class.getName());
 
 	public static void main(String args[]) throws IOException {
+		launcher(args);
+	}
+	
+	public static void launcher(String args[]) throws IOException {
 		if (args.length == 0) 
 		{
 			System.out.println("Starting a default server with port 1025...");
@@ -39,7 +43,12 @@ public class Server {
 	 * 
 	 * @param port
 	 *            port to listen on
+	 * @throws IOException 
 	 */
+	public Server(String args[]) throws IOException {
+		launcher(args);
+	}
+	
 	public Server(int port) throws IOException {
 		// Setting logger
 		log.setUseParentHandlers(false);

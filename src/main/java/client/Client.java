@@ -49,6 +49,10 @@ public class Client implements Runnable, ClientPlugin {
 		chatLineListenerPlugin.getChatLineListener(client);
 
 	}
+	
+	public Client(String args[]) {
+		launcher(args);
+	}
 		
 	public Client(String host, int port) {
 		// Using default correct password
