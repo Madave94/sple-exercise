@@ -8,7 +8,7 @@ public abstract class PluginConfig {
 	static ChatLineListenerPlugin chatLineListenerPlugin;
 	static EncryptionPlugin encryptionPlugin;
 	static LoggingPlugin loggingPlugin;
-	static SpamFilterPlugin spamFilterPlugin;
+	static FilterPlugin filterPlugin;
 	static TextColorPlugin textColorPlugin;
 	
 	
@@ -21,7 +21,7 @@ public abstract class PluginConfig {
 		authentificationPlugin = null;
 		encryptionPlugin = null;
 		loggingPlugin = null;
-		spamFilterPlugin = null;
+		filterPlugin = null;
 		textColorPlugin = null;		
 	}
 

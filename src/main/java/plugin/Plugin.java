@@ -19,8 +19,8 @@ public class Plugin extends PluginConfig{
 		return encryptionPlugin;
 	}
 	
-	public SpamFilterPlugin getSpamFilterPlugin() {
-		return spamFilterPlugin;
+	public FilterPlugin getSpamFilterPlugin() {
+		return filterPlugin;
 	}
 	
 	public TextColorPlugin getTextColorPlugin() {

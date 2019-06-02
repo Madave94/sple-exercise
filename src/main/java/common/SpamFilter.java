@@ -19,7 +19,7 @@ public class SpamFilter {
 	
 	final private String[] badWords = {"fuck", "damn", "shit", "idiot"};	
 		
-	String filter(String message) {
+	public String filter(String message) {
 		String result = message;
 		String substitue = "*";
 		for (String word: badWords) {

@@ -14,8 +14,10 @@ public class TextDecorator extends TextMessage{
 		
 		decorated_content = new TextColor().decorateText(decorated_content);
 		
-		decorated_content = 
-				SpamFilter.getInstance().filter(decorated_content);
+		if (Plugin.getInstance().getSpamFilterPlugin() != null)
+		decorated_content =  Plugin.getInstance()
+								.getSpamFilterPlugin()
+								.filter(decorated_content);		
 		
 		if (Plugin.getInstance().getEncryptionPlugin() != null)
 			decorated_content = Plugin.getInstance()
