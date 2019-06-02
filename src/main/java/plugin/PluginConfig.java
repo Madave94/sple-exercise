@@ -15,14 +15,14 @@ public abstract class PluginConfig {
 	PluginConfig() {
 		// Set Config here
 		// mandatory feature
-		chatLineListenerPlugin = null;
+		chatLineListenerPlugin = new ConsolPlugin();
 		
 		// optional features
-		authentificationPlugin = null;
-		encryptionPlugin = null;
-		loggingPlugin = null;
-		filterPlugin = null;
-		textColorPlugin = null;		
+		authentificationPlugin = new HandshakeAuthentificationPlugin();
+		encryptionPlugin = new ROT13Plugin();
+		loggingPlugin = new FileLoggingPlugin();
+		filterPlugin = new SpamFilterPlugin();
+		textColorPlugin = new CLITextColorPlugin();		
 	}
 
 }
