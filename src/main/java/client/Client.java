@@ -16,11 +16,16 @@ import common.TextMessage;
 
 import common.TextDecorator;
 
+import plugin.*;
+
 
 /**
  * simple chat client
  */
-public class Client implements Runnable {
+public class Client implements Runnable, ClientPlugin {
+	
+	// Initialize Plugins
+	private static ChatLineListenerPlugin chatLineListenerPlugin;
 	
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
@@ -40,19 +45,26 @@ public class Client implements Runnable {
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
-		new Console(client);
-
-		//new Swing_GUI(client);
+		
+		chatLineListenerPlugin.getChatLineListener(client);
 
 	}
 		
 	public Client(String host, int port) {
-		//Using default correct password
-		this(host, port, "hodor");
+		// Using default correct password
+		// Using default ConsolPlugin
+		this(host, port, "hodor", new ConsolPlugin());
 	}
 	
 	public Client(String host, int port, String password) {
+		// Using default ConsolPlugin
+		this(host, port, password, new ConsolPlugin());
+	}
+	
+	public Client(String host, int port, String password, ChatLineListenerPlugin chatLineListenerPlugin) {
 
+		this.chatLineListenerPlugin = chatLineListenerPlugin;
+		
 		setPassword(password);
 
 		try {
@@ -191,5 +203,10 @@ public class Client implements Runnable {
 		for (ChatLineListener listener: listeners) {
 			System.out.println(listener.toString());
 		}
+	}
+
+	@Override
+	public Client getClient() {
+		return this;
 	}
 }
