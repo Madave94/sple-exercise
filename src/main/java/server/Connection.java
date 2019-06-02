@@ -18,7 +18,7 @@ import common.TextMessage;
  * this client and handles incoming messages.
  */
 public class Connection extends Thread {
-	protected Socket socket;
+	public Socket socket;
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	private Server server;

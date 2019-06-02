@@ -10,6 +10,7 @@ import java.util.logging.*;
 
 import common.AuthentificationMessage;
 import plugin.AuthentificationPlugin;
+import plugin.LoggingPlugin;
 
 /**
  * server's main class. accepts incoming connections and allows broadcasting
@@ -18,13 +19,12 @@ public class Server {
 	
 	// initialize Plugins
 	AuthentificationPlugin authentificationPlugin;
+	LoggingPlugin loggingPlugin;
 
 	/**
 	 * list of all known connections
 	 */
 	protected HashSet<Connection> connections = new HashSet<Connection>();
-	
-	private static final Logger log = Logger.getLogger(Server.class.getName());
 
 	public static void main(String args[]) throws IOException {
 		launcher(args);
@@ -49,23 +49,16 @@ public class Server {
 	 *            port to listen on
 	 * @throws IOException 
 	 */
-	public Server(String args[], AuthentificationPlugin authentificationPlugin) throws IOException {
+	public Server(String args[], AuthentificationPlugin authentificationPlugin, LoggingPlugin loggingPlugin) throws IOException {
 		this.authentificationPlugin = authentificationPlugin;
+		this.loggingPlugin = loggingPlugin;
 		launcher(args);
 	}
 	
 	public Server(int port) throws IOException {
-		this(port, null);
-	}
-	
-	public Server(int port, AuthentificationPlugin authentificationPlugin) throws IOException {
-		this.authentificationPlugin = authentificationPlugin;
 		
 		// Setting logger
-		log.setUseParentHandlers(false);
-		Handler handler = new FileHandler( "log.xml" );
-		log.addHandler(handler);
-		log.info("Initialized Logger");
+		if (loggingPlugin != null) loggingPlugin.reportInit();
 
 		System.out.println("Initialized Logger");
 		
@@ -75,13 +68,13 @@ public class Server {
 		while (true) {
 			System.out.println("Waiting for Connections...");
 
-			log.info("Waiting for Connections...");
+			if (loggingPlugin != null) loggingPlugin.reportConnectionWait();
 			
 			Socket client = server.accept();			
 			
 			System.out.println("Accepted from " + client.getInetAddress());
 			
-			log.info("Accepted from " + client.getInetAddress());
+			if (loggingPlugin != null) loggingPlugin.reportConnectionAccepted(client);
 			
 			Connection c = connectTo(client);
 			
@@ -99,7 +92,7 @@ public class Server {
 	 *         this socket
 	 */
 	public Connection connectTo(Socket socket) {
-		log.info("Connected the client: " + socket.getInetAddress());
+		if (loggingPlugin != null) loggingPlugin.reportConnectionCreated(socket);
 		
 		Connection connection = new Connection(socket, this);
 		connections.add(connection);
@@ -113,7 +106,7 @@ public class Server {
 	 *            content of the message
 	 */
 	public void broadcast(String text) {
-		log.info("Broadcast message: " + text);
+		if (loggingPlugin != null) loggingPlugin.reportBroadcastMsg(text);
 		
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
@@ -130,7 +123,7 @@ public class Server {
 	 *            connection to remove
 	 */
 	public void removeConnection(Connection connection) {
-		log.info("Removed connection: " + connection.socket.getInetAddress());
+		if (loggingPlugin != null) loggingPlugin.reportRemoveConnection(connection);
 		
 		connections.remove(connection);
 	}
@@ -138,7 +131,7 @@ public class Server {
 	public void close() {
 		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
 		
-		log.warning("Kicked all clients.");
+		if (loggingPlugin != null) loggingPlugin.reportRemoveAll();		
 		
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
