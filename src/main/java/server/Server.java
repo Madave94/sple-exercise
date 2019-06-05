@@ -18,8 +18,8 @@ import plugin.LoggingPlugin;
 public class Server {
 	
 	// initialize Plugins
-	AuthentificationPlugin authentificationPlugin;
-	LoggingPlugin loggingPlugin;
+	static AuthentificationPlugin authentificationPlugin;
+	static LoggingPlugin loggingPlugin;
 
 	/**
 	 * list of all known connections
@@ -50,8 +50,8 @@ public class Server {
 	 * @throws IOException 
 	 */
 	public Server(String args[], AuthentificationPlugin authentificationPlugin, LoggingPlugin loggingPlugin) throws IOException {
-		this.authentificationPlugin = authentificationPlugin;
-		this.loggingPlugin = loggingPlugin;
+		Server.authentificationPlugin = authentificationPlugin;
+		Server.loggingPlugin = loggingPlugin;
 		launcher(args);
 	}
 	
