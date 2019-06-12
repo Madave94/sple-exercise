@@ -129,6 +129,9 @@ public class Client implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		if (msg instanceof UserMessage) {
+			
+		}
 	}
 
 	private void handleAuthentificationMessage(Object msg) throws IOException {
