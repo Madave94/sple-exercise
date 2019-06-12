@@ -30,5 +30,9 @@ public class UserMessage extends MessageProtocol{
 	public String getConsignor() {
 		return consignor;
 	}
-
+	
+	public String[] getAll() {
+		String[] contents = { this.reciever, this.consignor, this.msg.getContent() };
+		return contents;
+	}
 }

@@ -43,9 +43,9 @@ public class Client implements Runnable {
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 		
-		new Console(client);
+		//new Console(client);
 
-		//new Swing_GUI(client);
+		new Swing_GUI(client);
 
 	}
 		
@@ -61,7 +61,6 @@ public class Client implements Runnable {
 	
 	public Client(String host, int port, String username, String password) {
 
-		setUsername(username);
 		setPassword(password);
 
 		try {
@@ -76,7 +75,8 @@ public class Client implements Runnable {
 			
 			//making the handshake
 			send(PASSWORD);
-
+			
+			setUsername(username);
 			
 			thread.start();
 		} catch (Exception e) {

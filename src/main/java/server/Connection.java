@@ -10,8 +10,9 @@ import java.net.SocketException;
 import common.TextDecorator;
 
 import common.AuthentificationMessage;
-
+import common.LoginMessage;
 import common.TextMessage;
+import common.UserMessage;
 
 /**
  * class for an individual connection to a client. allows to send messages to
@@ -22,6 +23,11 @@ public class Connection extends Thread {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	private Server server;
+	private String clientName;
+
+	public String getClientName() {
+		return clientName;
+	}
 
 	public Connection(Socket s, Server server) {
 		this.socket = s;
@@ -39,12 +45,12 @@ public class Connection extends Thread {
 	 * waits for incoming messages from the socket
 	 */
 	public void run() {
-		String clientName = socket.getInetAddress().toString();
+		clientName = socket.getInetAddress().toString();
 		try {
 			server.broadcast(clientName + " has joined.");
 			Object msg = null;
 			while ((msg = inputStream.readObject()) != null) {
-				handleIncomingMessage(clientName, msg);
+				handleIncomingMessage(msg);
 			}
 		} catch (SocketException e) {
 		} catch (EOFException e) {
@@ -71,15 +77,22 @@ public class Connection extends Thread {
 	 * @param msg
 	 *            received message
 	 */
-	private void handleIncomingMessage(String name, Object msg) {
+	private void handleIncomingMessage(Object msg) {
 		if (msg instanceof TextMessage) {
 			
 			String incomingMessage = ((TextMessage) msg).getContent();
-			server.broadcast(name + " - " + incomingMessage);
+			server.broadcast(this.clientName + " - " + incomingMessage);
 		}
 		if (msg instanceof AuthentificationMessage) {
 			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
 			System.out.println("Authentification was " + incomingMessage);
+		}
+		if (msg instanceof LoginMessage) {
+			this.clientName = ((LoginMessage) msg).getUsername();
+		}
+		if (msg instanceof UserMessage) {
+			String[] userMsg = ((UserMessage) msg).getAll();
+			server.sendToUser(userMsg[0], userMsg[1], userMsg[2]);
 		}
 	}
 
@@ -91,7 +104,6 @@ public class Connection extends Thread {
 	 */
 	public void send(String line) {
 		send(new TextDecorator(line));
-		//send(new TextMessage(line));
 	}
 
 	public void send(TextMessage msg) {

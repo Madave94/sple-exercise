@@ -104,6 +104,15 @@ public class Server {
 		}
 	}
 	
+	public void sendToUser(String reciever, String consignor, String msg) {
+		Iterator<Connection> iterator = connections.iterator();
+		while (iterator.hasNext()) {
+			Connection connection = iterator.next();
+			String currentName = connection.getClientName();
+			if (currentName.equals( (String) reciever )) connection.send(msg);
+		}
+	}
+	
 	/**
 	 * remove a connection so that broadcasts are no longer sent there.
 	 * 
