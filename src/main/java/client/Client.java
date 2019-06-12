@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import common.AuthentificationMessage;
+import common.LoginMessage;
 import common.MessageProtocol;
 import common.TextMessage;
 import common.UserMessage;
@@ -129,9 +130,6 @@ public class Client implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		if (msg instanceof UserMessage) {
-			
-		}
 	}
 
 	private void handleAuthentificationMessage(Object msg) throws IOException {
@@ -140,11 +138,10 @@ public class Client implements Runnable {
 	}
 
 	public void send(String line) {
-		if (line.matches("/msg.")) send(new UserMessage(line));
+		if (line.startsWith("/msg")) send(new UserMessage(line, USERNAME));
+		if (line.startsWith("/username")) setUsername(line);
 		
 		send(new TextDecorator(line));
-
-		//send(new TextMessage(line));
 	}
 
 	public void send(MessageProtocol msg) {
@@ -201,7 +198,9 @@ public class Client implements Runnable {
 	}
 	
 	public void setUsername(String username) {
-		this.USERNAME = username;
+		LoginMessage newUsername = new LoginMessage(username);
+		send(newUsername);
+		this.USERNAME = newUsername.getUsername();
 	}
 	
 	public void printListener() {

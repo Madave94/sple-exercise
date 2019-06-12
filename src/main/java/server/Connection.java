@@ -40,7 +40,6 @@ public class Connection extends Thread {
 	 */
 	public void run() {
 		String clientName = socket.getInetAddress().toString();
-		//if (clientName.equals("/127.0.0.1")) clientName = clientName + " : A";
 		try {
 			server.broadcast(clientName + " has joined.");
 			Object msg = null;

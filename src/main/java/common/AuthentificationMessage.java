@@ -1,6 +1,6 @@
 package common;
 
-public class AuthentificationMessage extends MessageProtocol{
+public class AuthentificationMessage extends RegistrationProtocol{
 		
 	public AuthentificationMessage(boolean access) {
 		super( access );
@@ -10,5 +10,4 @@ public class AuthentificationMessage extends MessageProtocol{
 	public Boolean getContent() {
 		return (boolean) content;
 	}
-
 }

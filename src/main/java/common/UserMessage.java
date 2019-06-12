@@ -6,11 +6,12 @@ public class UserMessage extends MessageProtocol{
 	private String consignor;
 	private TextMessage msg;
 
-	public UserMessage(Object content) {
+	public UserMessage(String content, String consignor ) {
 		super(content);
 		String[] tokens = this.getContent().split(" ", 3);
-		this.reciever = tokens[1];
-		this.msg = new TextMessage ( tokens[2] );
+		this.reciever = tokens[1].trim();
+		this.msg = new TextMessage ( tokens[2].trim() );
+		this.consignor = consignor;
 	}
 	
 	@Override
@@ -25,5 +26,9 @@ public class UserMessage extends MessageProtocol{
 	public String getMessageContent() {
 		return msg.getContent();
 	}	
+	
+	public String getConsignor() {
+		return consignor;
+	}
 
 }
