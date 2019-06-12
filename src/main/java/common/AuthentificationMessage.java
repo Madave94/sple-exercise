@@ -1,20 +1,14 @@
 package common;
 
-import java.io.Serializable;
-
-public class AuthentificationMessage implements Serializable{
-
-	private static final long serialVersionUID = -5850676626808871111L;
-	
-	private boolean access;
-	
+public class AuthentificationMessage extends MessageProtocol{
+		
 	public AuthentificationMessage(boolean access) {
-		super();
-		this.access = access;
+		super( access );
 	}
 	
-	public boolean getContent() {
-		return access;
+	@Override
+	public Boolean getContent() {
+		return (boolean) content;
 	}
 
 }

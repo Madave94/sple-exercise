@@ -1,24 +1,17 @@
 package common;
-
-import java.io.Serializable;
-
 /**
  * serializable message that can be send over the sockets between client and
  * server. 
  */
-public class TextMessage implements Serializable {
-
-	private static final long serialVersionUID = -9161595018411902079L;
-	private String content;
-	
+public class TextMessage extends MessageProtocol {
 
 	public TextMessage(String content) {
-		super();
-		this.content = content;
+		super(content);
 	}
 
+	@Override
 	public String getContent() {
-		return content;
+		return (String) content;
 	}
 	
 	@Override
@@ -27,7 +20,8 @@ public class TextMessage implements Serializable {
 		if (o != null && o instanceof TextMessage) {
 			TextMessage msg = (TextMessage) o;
 			String otherContent = msg.getContent();
-			if (content.equals(otherContent)) result = true;
+			String ownContent = this.getContent();
+			if (ownContent.equals(otherContent)) result = true;
 		}
 		return result;
 	}

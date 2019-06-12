@@ -3,7 +3,7 @@ package common;
 public class TextDecorator extends TextMessage{
 
 	private static final long serialVersionUID = 1L;
-	private String decorated_content;
+	protected String decorated_content;
 	
 	public TextDecorator(String content) {
 		super(content);
