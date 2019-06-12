@@ -5,7 +5,8 @@ public class LoginMessage extends RegistrationProtocol {
 	public LoginMessage(String username ) {
 		super( username );
 		String[] tokens = this.getContent().split(" ");
-		this.content = tokens[1].trim();
+		if (tokens.length == 2) this.content = tokens[1].trim(); 
+		else this.content = tokens[0].trim();
 	}
 	
 	@Override
