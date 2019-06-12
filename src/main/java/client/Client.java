@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import common.AuthentificationMessage;
-
+import common.MessageProtocol;
 import common.TextMessage;
-
+import common.UserMessage;
 import common.TextDecorator;
 
 
@@ -26,6 +26,7 @@ public class Client implements Runnable {
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	private String PASSWORD;
+	private String USERNAME;
 	
 	protected Thread thread;
 	
@@ -36,6 +37,7 @@ public class Client implements Runnable {
 	static public void launcher(String args[]) {
 		Client client;
 		if (args.length == 0) client = new Client("localhost", 1025);
+		else if (args.length == 4) client = new Client(args[0], Integer.parseInt(args[1]), args[2], args[3]);
 		else if (args.length == 3) client = new Client(args[0], Integer.parseInt(args[1]), args[2]);
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
@@ -46,13 +48,19 @@ public class Client implements Runnable {
 
 	}
 		
-	public Client(String host, int port) {
-		//Using default correct password
-		this(host, port, "hodor");
+	public Client(String host, int port, String username) {
+		// Using default correct password
+		this(host, port, username, "hodor");
 	}
 	
-	public Client(String host, int port, String password) {
+	public Client(String host, int port) {
+		// Using default username and correct password
+		this(host, port, "anonymous_user", "hodor");
+	}
+	
+	public Client(String host, int port, String username, String password) {
 
+		setUsername(username);
 		setPassword(password);
 
 		try {
@@ -129,12 +137,14 @@ public class Client implements Runnable {
 	}
 
 	public void send(String line) {
+		if (line.matches("/msg.")) send(new UserMessage(line));
+		
 		send(new TextDecorator(line));
 
 		//send(new TextMessage(line));
 	}
 
-	public void send(TextMessage msg) {
+	public void send(MessageProtocol msg) {
 		try {
 			outputStream.writeObject(msg);
 			outputStream.flush();
@@ -185,6 +195,10 @@ public class Client implements Runnable {
 	
 	public void setPassword(String password) {
 		this.PASSWORD = password;
+	}
+	
+	public void setUsername(String username) {
+		this.USERNAME = username;
 	}
 	
 	public void printListener() {
