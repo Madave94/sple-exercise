@@ -42,11 +42,8 @@ public class Client implements Runnable {
 		else if (args.length == 3) client = new Client(args[0], Integer.parseInt(args[1]), args[2]);
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
-		
-		//new Console(client);
 
 		new Swing_GUI(client);
-
 	}
 		
 	public Client(String host, int port, String username) {
@@ -130,6 +127,10 @@ public class Client implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		
+		if (msg instanceof UserMessage) {
+			
+		}
 	}
 
 	private void handleAuthentificationMessage(Object msg) throws IOException {
@@ -139,9 +140,8 @@ public class Client implements Runnable {
 
 	public void send(String line) {
 		if (line.startsWith("/msg")) send(new UserMessage(line, USERNAME));
-		if (line.startsWith("/username")) setUsername(line);
-		
-		send(new TextDecorator(line));
+		else if (line.startsWith("/username")) setUsername(line);
+		else send(new TextDecorator(line));
 	}
 
 	public void send(MessageProtocol msg) {

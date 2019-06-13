@@ -109,7 +109,9 @@ public class Server {
 		while (iterator.hasNext()) {
 			Connection connection = iterator.next();
 			String currentName = connection.getClientName();
-			if (currentName.equals( (String) reciever )) connection.send(msg);
+			if (currentName.equals( (String) reciever )) {
+				connection.send(consignor + " - " + msg);
+			}
 		}
 	}
 	
