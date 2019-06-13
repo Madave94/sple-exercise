@@ -44,7 +44,9 @@ class ServerAuthentification implements Runnable {
 				connection.send(hasAccess);
 				connection.close();
 			}
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch ( IOException e ) {
 			e.printStackTrace();
 		}
 	}

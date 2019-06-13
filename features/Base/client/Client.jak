@@ -165,7 +165,7 @@ public class Client implements Runnable {
 	/**
 	 * listener-list for the observer pattern
 	 */
-	private ArrayList<ChatLineListener> listeners = new ArrayList<ChatLineListener>();
+	private ArrayList listeners = new ArrayList();
 
 	/**
 	 * addListner method for the observer pattern
@@ -185,7 +185,7 @@ public class Client implements Runnable {
 	 * fire Listner method for the observer pattern
 	 */
 	public void fireAddLine(String line) {
-		for (Iterator<ChatLineListener> iterator = listeners.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
 			ChatLineListener listener = (ChatLineListener) iterator.next();
 			listener.newChatLine(line);
 		}
@@ -211,11 +211,5 @@ public class Client implements Runnable {
 		LoginMessage newUsername = new LoginMessage(username);
 		send(newUsername);
 		this.USERNAME = newUsername.getUsername();
-	}
-
-	public void printListener() {
-		for (ChatLineListener listener : listeners) {
-			System.out.println(listener.toString());
-		}
 	}
 }

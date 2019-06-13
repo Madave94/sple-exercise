@@ -18,7 +18,7 @@ public class Server {
 	/**
 	 * list of all known connections
 	 */
-	protected HashSet<Connection> connections = new HashSet<Connection>();
+	protected HashSet connections = new HashSet();
 
 	private static final Logger log = Logger.getLogger(Server.class.getName());
 
@@ -94,7 +94,7 @@ public class Server {
 		log.info("Broadcast message: " + text);
 
 		synchronized (connections) {
-			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
+			for (Iterator iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
 				connection.send(text);
 			}
@@ -102,7 +102,7 @@ public class Server {
 	}
 
 	public void sendToUser(String reciever, String consignor, String msg) {
-		Iterator<Connection> iterator = connections.iterator();
+		Iterator iterator = connections.iterator();
 		while (iterator.hasNext()) {
 			Connection connection = iterator.next();
 			String currentName = connection.getClientName();
@@ -130,7 +130,7 @@ public class Server {
 		log.warning("Kicked all clients.");
 
 		synchronized (connections) {
-			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
+			for (Iterator iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
 				connection.send(hasAccess);
 				removeConnection(connection);
