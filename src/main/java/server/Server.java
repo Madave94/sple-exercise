@@ -110,7 +110,7 @@ public class Server {
 			Connection connection = iterator.next();
 			String currentName = connection.getClientName();
 			if (currentName.equals( (String) reciever )) {
-				connection.send(consignor + " - " + msg);
+				connection.send("Whisper from " + consignor + " - " + msg);
 			}
 		}
 	}
