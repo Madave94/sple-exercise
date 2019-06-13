@@ -1,5 +1,3 @@
-package common;
-
 public class LoginMessage extends RegistrationProtocol {
 
 	public LoginMessage(String username) {

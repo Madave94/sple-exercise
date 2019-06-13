@@ -1,4 +1,3 @@
-package server;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -84,7 +83,7 @@ public class Connection extends Thread {
 			server.broadcast(this.clientName + " - " + incomingMessage);
 		}
 		if (msg instanceof AuthentificationMessage) {
-			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
+			boolean incomingMessage = (Boolean) ((AuthentificationMessage) msg).getContent();
 			System.out.println("Authentification was " + incomingMessage);
 		}
 		if (msg instanceof LoginMessage) {

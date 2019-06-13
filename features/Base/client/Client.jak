@@ -1,4 +1,3 @@
-package client;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,11 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import common.AuthentificationMessage;
-import common.LoginMessage;
-import common.MessageProtocol;
-import common.TextMessage;
-import common.UserMessage;
-import common.TextDecorator;
+import common.*;
 
 /**
  * simple chat client
@@ -138,7 +133,7 @@ public class Client implements Runnable {
 	}
 
 	private void handleAuthentificationMessage(Object msg) throws IOException {
-		boolean hasAccess = ((AuthentificationMessage) msg).getContent();
+		boolean hasAccess = (Boolean) ((AuthentificationMessage) msg).getContent();
 		if (!hasAccess)
 			close();
 	}

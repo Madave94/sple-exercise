@@ -1,4 +1,3 @@
-package client;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +17,7 @@ import java.awt.event.ActionListener;
 // source: https://codereview.stackexchange.com/questions/25461/simple-chat-room-swing-gui
 // source recommended by Jan Froehlich
 
-public class Swing_GUI extends JFrame implements ChatLineListener {
+public class GUI extends JFrame implements ChatLineListener {
 
 	/**
 	 * 
@@ -33,7 +32,7 @@ public class Swing_GUI extends JFrame implements ChatLineListener {
 	JTextField messageBox;
 	JTextArea chatBox;
 
-	public Swing_GUI(Client chatClient) {
+	public GUI(Client chatClient) {
 
 		// register listener so that we are informed whenever a new chat message
 		// is received (observer pattern)
