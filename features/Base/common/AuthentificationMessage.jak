@@ -1,11 +1,15 @@
 public class AuthentificationMessage extends RegistrationProtocol{
 		
-	public AuthentificationMessage(boolean access) {
+	public AuthentificationMessage(Object access) {
 		super( access );
 	}
 	
-	@Override
 	public Object getContent() {
-		return (Boolean) content;
+		return content;
+	}
+	
+	public boolean getAccess() {
+		Boolean hasAccess = (Boolean) this.getContent();
+		return hasAccess.booleanValue();
 	}
 }

@@ -26,20 +26,19 @@ class ServerAuthentification implements Runnable {
 		return result;
 	}
 
-	@Override
 	public void run() {
 		try {
 			connection.send("Requesting password...");
 			TextMessage msg = (TextMessage) inputStream.readObject();
 			AuthentificationMessage hasAccess;
-			if (login(msg.getContent())) {
-				hasAccess = new AuthentificationMessage(true);
+			if (login(msg.getMsg())) {
+				hasAccess = new AuthentificationMessage(new Boolean(true));
 				connection.send(hasAccess);
 				connection.send("Authentification successful!");
 				connection.start();
 			} else {
 				connection.send("Authentification failed!");
-				hasAccess = new AuthentificationMessage(false);
+				hasAccess = new AuthentificationMessage(new Boolean(false));
 				connection.send(hasAccess);
 				connection.close();
 			}

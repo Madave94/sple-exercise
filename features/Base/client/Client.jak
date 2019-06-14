@@ -116,7 +116,7 @@ public class Client implements Runnable {
 	 */
 	protected void handleIncomingMessage(Object msg) {
 		if (msg instanceof TextMessage) {
-			fireAddLine(((TextMessage) msg).getContent() + "\n");
+			fireAddLine(((TextMessage) msg).getMsg() + "\n");
 		}
 		// kick the client if the Authentification is false
 		if (msg instanceof AuthentificationMessage) {
@@ -133,7 +133,7 @@ public class Client implements Runnable {
 	}
 
 	private void handleAuthentificationMessage(Object msg) throws IOException {
-		boolean hasAccess = (Boolean) ((AuthentificationMessage) msg).getContent();
+		boolean hasAccess = ((AuthentificationMessage) msg).getAccess();
 		if (!hasAccess)
 			close();
 	}

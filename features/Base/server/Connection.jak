@@ -79,12 +79,12 @@ public class Connection extends Thread {
 	private void handleIncomingMessage(Object msg) {
 		if (msg instanceof TextMessage) {
 
-			String incomingMessage = ((TextMessage) msg).getContent();
+			String incomingMessage = ((TextMessage) msg).getMsg();
 			server.broadcast(this.clientName + " - " + incomingMessage);
 		}
 		if (msg instanceof AuthentificationMessage) {
-			boolean incomingMessage = (Boolean) ((AuthentificationMessage) msg).getContent();
-			System.out.println("Authentification was " + incomingMessage);
+			Boolean incomingMessage = (Boolean) ((AuthentificationMessage) msg).getContent();
+			System.out.println("Authentification was " + incomingMessage.toString());
 		}
 		if (msg instanceof LoginMessage) {
 			this.clientName = ((LoginMessage) msg).getUsername();

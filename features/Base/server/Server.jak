@@ -124,7 +124,7 @@ public class Server {
 	}
 
 	public void close() {
-		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
+		AuthentificationMessage hasAccess = new AuthentificationMessage(new Boolean(false));
 
 		log.warning("Kicked all clients.");
 

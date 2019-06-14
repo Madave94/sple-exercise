@@ -8,18 +8,20 @@ public class TextMessage extends MessageProtocol {
 		super(content);
 	}
 
-	@Override
-	public String getContent() {
+	public Object getContent() {
+		return content;
+	}
+	
+	public String getMsg() {
 		return (String) content;
 	}
 
-	@Override
 	public boolean equals(Object o) {
 		boolean result = false;
 		if (o != null && o instanceof TextMessage) {
 			TextMessage msg = (TextMessage) o;
-			String otherContent = msg.getContent();
-			String ownContent = this.getContent();
+			String otherContent = msg.getMsg();
+			String ownContent = this.getMsg();
 			if (ownContent.equals(otherContent))
 				result = true;
 		}
