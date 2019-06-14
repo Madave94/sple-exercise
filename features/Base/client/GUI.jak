@@ -46,7 +46,7 @@ public class GUI extends JFrame implements ChatLineListener {
 	public void display() {
 		frame.setVisible(true);
 		JPanel southPanel = new JPanel();
-		frame.add(BorderLayout.SOUTH, southPanel);
+		frame.getContentPane().add(BorderLayout.SOUTH, southPanel);
 		southPanel.setBackground(Color.GRAY);
 		southPanel.setLayout(new GridBagLayout());
 
@@ -54,7 +54,7 @@ public class GUI extends JFrame implements ChatLineListener {
 		sendMessage = new JButton("Send");
 		chatBox = new JTextArea();
 		chatBox.setEditable(false);
-		frame.add(new JScrollPane(chatBox), BorderLayout.CENTER);
+		frame.getContentPane().add(new JScrollPane(chatBox), BorderLayout.CENTER);
 
 		chatBox.setLineWrap(true);
 
@@ -67,12 +67,13 @@ public class GUI extends JFrame implements ChatLineListener {
 		southPanel.add(messageBox, left);
 		southPanel.add(sendMessage, right);
 
-		messageBox.addActionListener(new sendMessageListener(this));
-		sendMessage.addActionListener(new sendMessageListener(this));
-		messageBox.
+		messageBox.addActionListener(new sendMessageListener());
+		sendMessage.addActionListener(new sendMessageListener());
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 300);
-		frame.setMinimumSize(new Dimension(500, 300));
+		//frame.setMinimumSize(new Dimension(500, 300));ä
+		frame.setSize(new Dimension(500, 300));
 	}
 
 	public void newChatLine(String line) {
@@ -81,14 +82,10 @@ public class GUI extends JFrame implements ChatLineListener {
 	}
 	
 	class sendMessageListener implements ActionListener {
-		GUI ui;
 		public void actionPerformed(ActionEvent event) {
-			String msg = ui.messageBox.getText();
-			ui.chatClient.send(msg);
-			ui.messageBox.setText("");
-		}
-		sendMessageListener( GUI _ui) {
-			this.ui = _ui;
+			String msg = messageBox.getText();
+			chatClient.send(msg);
+			messageBox.setText("");
 		}
 	}
 }
