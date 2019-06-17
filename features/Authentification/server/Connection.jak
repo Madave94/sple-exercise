@@ -1,0 +1,25 @@
+/**
+ * TODO description
+ */
+import common.AuthentificationMessage;
+public refines class Connection {
+	
+	protected void handleIncomingMessage(Object msg) {
+		Super(Object).handleIncomingMessage(msg);
+		if (msg instanceof AuthentificationMessage) {
+			Boolean incomingMessage = (Boolean) ((AuthentificationMessage) msg).getContent();
+			System.out.println("Authentification was " + incomingMessage.toString());
+		}
+	}
+	
+	public void send(AuthentificationMessage msg) {
+		try {
+			synchronized (outputStream) {
+				outputStream.writeObject(msg);
+			}
+			outputStream.flush();
+		} catch (IOException ex) {
+		}
+	}
+
+}

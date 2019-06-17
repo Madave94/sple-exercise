@@ -8,7 +8,6 @@ import java.net.SocketException;
 
 import common.TextDecorator;
 
-import common.AuthentificationMessage;
 import common.LoginMessage;
 import common.TextMessage;
 import common.UserMessage;
@@ -22,7 +21,7 @@ public class Connection extends Thread {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	private Server server;
-	private String clientName;
+	protected String clientName;
 
 	public String getClientName() {
 		return clientName;
@@ -76,15 +75,11 @@ public class Connection extends Thread {
 	 * @param msg
 	 *            received message
 	 */
-	private void handleIncomingMessage(Object msg) {
+	protected void handleIncomingMessage(Object msg) {
 		if (msg instanceof TextMessage) {
 
 			String incomingMessage = ((TextMessage) msg).getMsg();
 			server.broadcast(this.clientName + " - " + incomingMessage);
-		}
-		if (msg instanceof AuthentificationMessage) {
-			Boolean incomingMessage = (Boolean) ((AuthentificationMessage) msg).getContent();
-			System.out.println("Authentification was " + incomingMessage.toString());
 		}
 		if (msg instanceof LoginMessage) {
 			this.clientName = ((LoginMessage) msg).getUsername();
@@ -106,16 +101,6 @@ public class Connection extends Thread {
 	}
 
 	public void send(TextMessage msg) {
-		try {
-			synchronized (outputStream) {
-				outputStream.writeObject(msg);
-			}
-			outputStream.flush();
-		} catch (IOException ex) {
-		}
-	}
-
-	public void send(AuthentificationMessage msg) {
 		try {
 			synchronized (outputStream) {
 				outputStream.writeObject(msg);

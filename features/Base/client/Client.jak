@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import common.AuthentificationMessage;
+
 import common.*;
 
 /**
@@ -20,7 +20,6 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-	protected String PASSWORD;
 	protected String USERNAME;
 
 	protected Thread thread;
@@ -54,9 +53,7 @@ public class Client implements Runnable {
 	}
 
 	public Client(String host, int port, String username, String password) {
-
 		setPassword(password);
-
 		try {
 			System.out.println("Connecting to " + host + " (port " + port + ")...");
 
@@ -68,7 +65,7 @@ public class Client implements Runnable {
 			thread = new Thread(this);
 
 			// making the handshake
-			send(PASSWORD);
+			authentification();
 
 			setUsername(username);
 
@@ -116,24 +113,6 @@ public class Client implements Runnable {
 		if (msg instanceof TextMessage) {
 			fireAddLine(((TextMessage) msg).getMsg() + "\n");
 		}
-		// kick the client if the Authentification is false
-		if (msg instanceof AuthentificationMessage) {
-			try {
-				handleAuthentificationMessage(msg);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (msg instanceof UserMessage) {
-
-		}
-	}
-
-	private void handleAuthentificationMessage(Object msg) throws IOException {
-		boolean hasAccess = ((AuthentificationMessage) msg).getAccess();
-		if (!hasAccess)
-			close();
 	}
 
 	public void send(String line) {
@@ -196,13 +175,17 @@ public class Client implements Runnable {
 		System.exit(0);
 	}
 
-	public void setPassword(String password) {
-		this.PASSWORD = password;
-	}
-
 	public void setUsername(String username) {
 		LoginMessage newUsername = new LoginMessage(username);
 		send(newUsername);
 		this.USERNAME = newUsername.getUsername();
+	}
+	
+	public void authentification() {
+		// Intentionally empty
+	}
+	
+	public void setPassword(String password) {
+		// Intentionally empty
 	}
 }

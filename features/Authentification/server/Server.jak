@@ -1,0 +1,23 @@
+/**
+ * TODO description
+ */
+import common.AuthentificationMessage;
+public refines class Server {
+	
+	public void establishConnection(Connection c) {
+		new ServerAuthentification(c);
+	}
+	
+	public void close() {
+		AuthentificationMessage hasAccess = new AuthentificationMessage(new Boolean(false));
+
+		synchronized (connections) {
+			for (Iterator iterator = connections.iterator(); iterator.hasNext();) {
+				Connection connection = (Connection) iterator.next();
+				connection.send(hasAccess);
+				removeConnection(connection);
+			}
+		}
+	}
+
+}

@@ -7,8 +7,6 @@ import java.util.Iterator;
 
 import java.util.logging.*;
 
-import common.AuthentificationMessage;
-
 /**
  * server's main class. accepts incoming connections and allows broadcasting
  */
@@ -60,11 +58,13 @@ public class Server {
 			log.info("Accepted from " + client.getInetAddress());
 
 			Connection c = connectTo(client);
-
-			new ServerAuthentification(c);
-
-			// c.start();
+			
+			establishConnection(c);
 		}
+	}
+	
+	public void establishConnection(Connection c) {
+		c.start();
 	}
 
 	/**
@@ -121,19 +121,5 @@ public class Server {
 		log.info("Removed connection: " + connection.socket.getInetAddress());
 
 		connections.remove(connection);
-	}
-
-	public void close() {
-		AuthentificationMessage hasAccess = new AuthentificationMessage(new Boolean(false));
-
-		log.warning("Kicked all clients.");
-
-		synchronized (connections) {
-			for (Iterator iterator = connections.iterator(); iterator.hasNext();) {
-				Connection connection = (Connection) iterator.next();
-				connection.send(hasAccess);
-				removeConnection(connection);
-			}
-		}
 	}
 }
