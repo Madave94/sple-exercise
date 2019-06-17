@@ -1,0 +1,41 @@
+/**
+ * TODO description
+ */
+
+import java.util.logging.*;
+
+public refines class Server {
+	
+	private static final Logger log = Logger.getLogger(Server.class.getName());
+	
+	refines Server(int port) {
+		// Setting logger
+		log.setUseParentHandlers(false);
+		Handler handler = new FileHandler("log.xml");
+		log.addHandler(handler);
+		log.info("Initialized Logger");
+		System.out.println("Initialized Logger");
+	}
+	
+	public void establishConnection(Connection c) {
+		log.info("Accepted new client");
+		Super(Connection).establishConnection(c);
+		log.info("Waiting for Connections...");
+	}
+	
+	public Connection connectTo(Socket socket) {
+		log.info("Connected the client: ");
+		return Super(Socket).connectTo(socket);
+	}
+	
+	public void broadcast(String text) {
+		log.info("Broadcast message: " + text);
+		Super(String).broadcast(text);
+	}
+	
+	public void removeConnection(Connection connection) {
+		log.info("Removed connection: " + connection.socket.getInetAddress());
+		Super(Connection).removeConnection(connection);
+		}
+
+}

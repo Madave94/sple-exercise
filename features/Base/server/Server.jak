@@ -5,8 +5,6 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import java.util.logging.*;
-
 /**
  * server's main class. accepts incoming connections and allows broadcasting
  */
@@ -17,8 +15,6 @@ public class Server {
 	 */
 	protected HashSet connections = new HashSet();
 
-	private static final Logger log = Logger.getLogger(Server.class.getName());
-
 	public static void main(String args[]) throws IOException {
 		if (args.length == 0) {
 			System.out.println("Starting a default server with port 1025...");
@@ -28,6 +24,8 @@ public class Server {
 		} else
 			new Server(Integer.parseInt(args[0]));
 	}
+	
+	public void init() {}
 
 	/**
 	 * awaits incoming connections and creates Connection objects accordingly.
@@ -36,26 +34,19 @@ public class Server {
 	 *            port to listen on
 	 */
 	public Server(int port) throws IOException {
-		// Setting logger
-		log.setUseParentHandlers(false);
-		Handler handler = new FileHandler("log.xml");
-		log.addHandler(handler);
-		log.info("Initialized Logger");
-
-		System.out.println("Initialized Logger");
-
 		// Creating ServerSocket
+		init();
 		ServerSocket server = new ServerSocket(port);
 		while (true) {
 			System.out.println("Waiting for Connections...");
 
-			log.info("Waiting for Connections...");
+			
 
 			Socket client = server.accept();
 
 			System.out.println("Accepted from " + client.getInetAddress());
 
-			log.info("Accepted from " + client.getInetAddress());
+			
 
 			Connection c = connectTo(client);
 			
@@ -76,8 +67,6 @@ public class Server {
 	 *         this socket
 	 */
 	public Connection connectTo(Socket socket) {
-		log.info("Connected the client: " + socket.getInetAddress());
-
 		Connection connection = new Connection(socket, this);
 		connections.add(connection);
 		return connection;
@@ -90,8 +79,6 @@ public class Server {
 	 *            content of the message
 	 */
 	public void broadcast(String text) {
-		log.info("Broadcast message: " + text);
-
 		synchronized (connections) {
 			for (Iterator iterator = connections.iterator(); iterator.hasNext();) {
 				Connection connection = (Connection) iterator.next();
@@ -118,8 +105,6 @@ public class Server {
 	 *            connection to remove
 	 */
 	public void removeConnection(Connection connection) {
-		log.info("Removed connection: " + connection.socket.getInetAddress());
-
 		connections.remove(connection);
 	}
 }
