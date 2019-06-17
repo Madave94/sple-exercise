@@ -41,8 +41,6 @@ public class Client implements Runnable {
 			throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else
 			client = new Client(args[0], Integer.parseInt(args[1]));
-		
-		client.createListeners(client);
 	}
 
 	public Client(String host, int port, String username) {
@@ -85,7 +83,6 @@ public class Client implements Runnable {
 	 */
 	public void run() {
 		try {
-			new GUI( this );
 			Thread thisthread = Thread.currentThread();
 			while (thread == thisthread && !thisthread.interrupted()) {
 				try {
@@ -165,11 +162,7 @@ public class Client implements Runnable {
 
 	/**
 	 * addListner method for the observer pattern
-	 */
-	public void createListeners (Client client) {
-		new GUI( client );
-	}
-	
+	 */	
 	public void addLineListener(ChatLineListener listener) {
 		listeners.add(listener);
 	}

@@ -3,9 +3,9 @@
  */
 public refines class Client {
 	
-	public void createListeners (Client client) {
-		Super(Client).createListeners(client);
-		new GUI( client );
+	public void run() {
+		new GUI( this );
+		Super().run();
 	}
 
 }
