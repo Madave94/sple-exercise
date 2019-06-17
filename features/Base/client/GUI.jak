@@ -67,25 +67,17 @@ public class GUI extends JFrame implements ChatLineListener {
 		southPanel.add(messageBox, left);
 		southPanel.add(sendMessage, right);
 
-		messageBox.addActionListener(new sendMessageListener());
-		sendMessage.addActionListener(new sendMessageListener());
+		messageBox.addActionListener(new SendMessageListener(chatClient, messageBox));
+		sendMessage.addActionListener(new SendMessageListener(chatClient, messageBox));
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 300);
-		//frame.setMinimumSize(new Dimension(500, 300));ä
+		//frame.setMinimumSize(new Dimension(500, 300));
 		frame.setSize(new Dimension(500, 300));
 	}
 
 	public void newChatLine(String line) {
 		chatBox.append(line + "\n");
 
-	}
-	
-	class sendMessageListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			String msg = messageBox.getText();
-			chatClient.send(msg);
-			messageBox.setText("");
-		}
 	}
 }
