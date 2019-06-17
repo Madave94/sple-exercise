@@ -1,6 +1,6 @@
 public class LoginMessage extends RegistrationProtocol {
 
-	public LoginMessage(String username) {
+	public LoginMessage(Object username) {
 		super(username);
 		String[] tokens = this.getUsername().split(" ");
 		if (tokens.length == 2)

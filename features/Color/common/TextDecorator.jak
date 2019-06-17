@@ -1,0 +1,11 @@
+/**
+ * TODO description
+ */
+public refines class TextDecorator {
+	
+	refines TextDecorator(String content) {
+		Super(String).TextDecorator(content);
+		decorated_content = new TextColor().decorateText(decorated_content);
+	}
+
+}
