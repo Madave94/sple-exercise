@@ -20,7 +20,6 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-	protected String USERNAME;
 
 	protected Thread thread;
 
@@ -116,12 +115,7 @@ public class Client implements Runnable {
 	}
 
 	public void send(String line) {
-		if (line.startsWith("/msg"))
-			send(new UserMessage(line, USERNAME));
-		else if (line.startsWith("/username"))
-			setUsername(line);
-		else
-			send(new TextDecorator(line));
+		send(new TextDecorator(line));
 	}
 
 	public void send(MessageProtocol msg) {
@@ -176,9 +170,7 @@ public class Client implements Runnable {
 	}
 
 	public void setUsername(String username) {
-		LoginMessage newUsername = new LoginMessage(username);
-		send(newUsername);
-		this.USERNAME = newUsername.getUsername();
+		// Intentionally empty
 	}
 	
 	public void authentification() {

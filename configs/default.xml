@@ -2,7 +2,6 @@
 <configuration>
     <feature automatic="selected" name="spleexercise"/>
     <feature automatic="selected" name="Base"/>
-    <feature manual="selected" name="Color"/>
-    <feature manual="selected" name="Authentification"/>
     <feature automatic="selected" name="GUI"/>
+    <feature manual="selected" name="UserNames"/>
 </configuration>

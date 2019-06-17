@@ -1,0 +1,14 @@
+/**
+ * TODO description
+ */
+public refines class Connection {
+	
+	protected void handleIncomingMessage(Object msg) {
+		Super(Object).handleIncomingMessage(msg);
+		if (msg instanceof UserMessage) {
+			String[] userMsg = ((UserMessage) msg).getAll();
+			server.sendToUser(userMsg[0], userMsg[1], userMsg[2]);
+		}
+	}
+
+}

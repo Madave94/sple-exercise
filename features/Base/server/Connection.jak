@@ -6,11 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import common.TextDecorator;
-
-import common.LoginMessage;
-import common.TextMessage;
-import common.UserMessage;
+import common.*;
 
 /**
  * class for an individual connection to a client. allows to send messages to
@@ -20,7 +16,7 @@ public class Connection extends Thread {
 	protected Socket socket;
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
-	private Server server;
+	protected Server server;
 	protected String clientName;
 
 	public String getClientName() {
@@ -83,10 +79,6 @@ public class Connection extends Thread {
 		}
 		if (msg instanceof LoginMessage) {
 			this.clientName = ((LoginMessage) msg).getUsername();
-		}
-		if (msg instanceof UserMessage) {
-			String[] userMsg = ((UserMessage) msg).getAll();
-			server.sendToUser(userMsg[0], userMsg[1], userMsg[2]);
 		}
 	}
 

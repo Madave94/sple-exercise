@@ -1,0 +1,22 @@
+/**
+ * TODO description
+ */
+public refines class Client {
+	protected String USERNAME;
+	
+	public void setUsername(String username) {
+		LoginMessage newUsername = new LoginMessage(username);
+		send(newUsername);
+		this.USERNAME = newUsername.getUsername();
+	}
+	
+	public void send(String line) {
+		if (line.startsWith("/msg"))
+			send(new UserMessage(line, USERNAME));
+		else if (line.startsWith("/username"))
+			setUsername(line);
+		else
+			send(new TextDecorator(line));
+	}
+
+}
