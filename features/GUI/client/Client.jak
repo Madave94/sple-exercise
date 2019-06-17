@@ -3,10 +3,9 @@
  */
 public refines class Client {
 	
-	static public Client launcher(String args[]) {
-		Client client = Super().launcher(args);
+	public void createListeners (Client client) {
+		Super(Client).createListeners(client);
 		new GUI( client );
-		return client;
 	}
 
 }
