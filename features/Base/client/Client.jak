@@ -20,8 +20,8 @@ public class Client implements Runnable {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-	private String PASSWORD;
-	private String USERNAME;
+	protected String PASSWORD;
+	protected String USERNAME;
 
 	protected Thread thread;
 
@@ -29,7 +29,7 @@ public class Client implements Runnable {
 		launcher(args);
 	}
 
-	static public void launcher(String args[]) {
+	static public Client launcher(String args[]) {
 		Client client;
 		if (args.length == 0)
 			client = new Client("localhost", 1025);
@@ -43,6 +43,7 @@ public class Client implements Runnable {
 			client = new Client(args[0], Integer.parseInt(args[1]));
 
 		new GUI(client);
+		return client;
 	}
 
 	public Client(String host, int port, String username) {

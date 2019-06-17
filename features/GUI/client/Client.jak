@@ -1,0 +1,12 @@
+/**
+ * TODO description
+ */
+public refines class Client {
+	
+	static public Client launcher(String args[]) {
+		Client client = Super().launcher(args);
+		new GUI( client );
+		return client;
+	}
+
+}
