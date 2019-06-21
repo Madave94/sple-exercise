@@ -7,12 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import common.TextDecorator;
-
-import common.AuthentificationMessage;
-import common.LoginMessage;
 import common.TextMessage;
-import common.UserMessage;
 
 /**
  * class for an individual connection to a client. allows to send messages to
@@ -23,11 +18,6 @@ public class Connection extends Thread {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	private Server server;
-	private String clientName;
-
-	public String getClientName() {
-		return clientName;
-	}
 
 	public Connection(Socket s, Server server) {
 		this.socket = s;
@@ -38,19 +28,19 @@ public class Connection extends Thread {
 			e.printStackTrace();
 		}
 
-		this.server = server;			
+		this.server = server;
 	}
 
 	/**
 	 * waits for incoming messages from the socket
 	 */
 	public void run() {
-		clientName = socket.getInetAddress().toString();
+		String clientName = socket.getInetAddress().toString();
 		try {
 			server.broadcast(clientName + " has joined.");
 			Object msg = null;
 			while ((msg = inputStream.readObject()) != null) {
-				handleIncomingMessage(msg);
+				handleIncomingMessage(clientName, msg);
 			}
 		} catch (SocketException e) {
 		} catch (EOFException e) {
@@ -77,23 +67,9 @@ public class Connection extends Thread {
 	 * @param msg
 	 *            received message
 	 */
-	private void handleIncomingMessage(Object msg) {
-		if (msg instanceof TextMessage) {
-			
-			String incomingMessage = ((TextMessage) msg).getContent();
-			server.broadcast(this.clientName + " - " + incomingMessage);
-		}
-		if (msg instanceof AuthentificationMessage) {
-			boolean incomingMessage = ((AuthentificationMessage) msg).getContent();
-			System.out.println("Authentification was " + incomingMessage);
-		}
-		if (msg instanceof LoginMessage) {
-			this.clientName = ((LoginMessage) msg).getUsername();
-		}
-		if (msg instanceof UserMessage) {
-			String[] userMsg = ((UserMessage) msg).getAll();
-			server.sendToUser(userMsg[0], userMsg[1], userMsg[2]);
-		}
+	private void handleIncomingMessage(String name, Object msg) {
+		if (msg instanceof TextMessage)
+			server.broadcast(name + " - " + ((TextMessage) msg).getContent());
 	}
 
 	/**
@@ -103,7 +79,7 @@ public class Connection extends Thread {
 	 *            text of the message
 	 */
 	public void send(String line) {
-		send(new TextDecorator(line));
+		send(new TextMessage(line));
 	}
 
 	public void send(TextMessage msg) {
@@ -114,19 +90,5 @@ public class Connection extends Thread {
 			outputStream.flush();
 		} catch (IOException ex) {
 		}
-	}
-	
-	public void send(AuthentificationMessage msg) {
-		try {
-			synchronized (outputStream) {
-				outputStream.writeObject(msg);
-			}
-			outputStream.flush();
-		} catch (IOException ex) {
-		}
-	}
-	
-	public void close() throws IOException {
-		if (outputStream != null) outputStream.close();
 	}
 }
