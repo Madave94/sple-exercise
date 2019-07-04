@@ -65,9 +65,7 @@ public class Server {
 			
 			Connection c = connectTo(client);
 			
-			new ServerAuthentification(c);
-
-			//c.start();
+			c.start();
 		}
 	}
 	

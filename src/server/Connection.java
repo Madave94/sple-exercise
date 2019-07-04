@@ -20,8 +20,8 @@ import common.UserMessage;
  */
 public class Connection extends Thread {
 	protected Socket socket;
-	protected ObjectInputStream inputStream;
-	protected ObjectOutputStream outputStream;
+	public ObjectInputStream inputStream;
+	public ObjectOutputStream outputStream;
 	private Server server;
 	private String clientName;
 
