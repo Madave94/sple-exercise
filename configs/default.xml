@@ -5,5 +5,4 @@
     <feature automatic="selected" name="CLI"/>
     <feature manual="selected" name="ServerLogging"/>
     <feature manual="selected" name="Authentification"/>
-    <feature manual="selected" name="Color"/>
 </configuration>
