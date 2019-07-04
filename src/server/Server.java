@@ -19,8 +19,6 @@ public class Server {
 	 * list of all known connections
 	 */
 	protected HashSet<Connection> connections = new HashSet<Connection>();
-	
-	private static final Logger log = Logger.getLogger(Server.class.getName());
 
 	public static void main(String args[]) throws IOException {
 		if (args.length == 0) 
@@ -42,10 +40,7 @@ public class Server {
 	 */
 	public Server(int port) throws IOException {
 		// Setting logger
-		log.setUseParentHandlers(false);
-		Handler handler = new FileHandler( "log.xml" );
-		log.addHandler(handler);
-		log.info("Initialized Logger");
+
 
 		System.out.println("Initialized Logger");
 		
@@ -54,14 +49,10 @@ public class Server {
 		ServerSocket server = new ServerSocket(port);
 		while (true) {
 			System.out.println("Waiting for Connections...");
-
-			log.info("Waiting for Connections...");
 			
 			Socket client = server.accept();			
 			
 			System.out.println("Accepted from " + client.getInetAddress());
-			
-			log.info("Accepted from " + client.getInetAddress());
 			
 			Connection c = connectTo(client);
 			
@@ -78,7 +69,7 @@ public class Server {
 	 *         this socket
 	 */
 	public Connection connectTo(Socket socket) {
-		log.info("Connected the client: " + socket.getInetAddress());
+		System.out.println("Connected the client: " + socket.getInetAddress());
 		
 		Connection connection = new Connection(socket, this);
 		connections.add(connection);
@@ -92,7 +83,7 @@ public class Server {
 	 *            content of the message
 	 */
 	public void broadcast(String text) {
-		log.info("Broadcast message: " + text);
+		System.out.println("Broadcast message: " + text);
 		
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
@@ -120,7 +111,7 @@ public class Server {
 	 *            connection to remove
 	 */
 	public void removeConnection(Connection connection) {
-		log.info("Removed connection: " + connection.socket.getInetAddress());
+		System.out.println("Removed connection: " + connection.socket.getInetAddress());
 		
 		connections.remove(connection);
 	}
@@ -128,7 +119,7 @@ public class Server {
 	public void close() {
 		AuthentificationMessage hasAccess = new AuthentificationMessage(false);
 		
-		log.warning("Kicked all clients.");
+		System.out.println("Kicked all clients.");
 		
 		synchronized (connections) {
 			for (Iterator<Connection> iterator = connections.iterator(); iterator.hasNext();) {
