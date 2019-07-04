@@ -3,13 +3,11 @@ package common;
 public class TextDecorator extends TextMessage{
 
 	private static final long serialVersionUID = 1L;
-	protected String decorated_content;
+	public String decorated_content;
 	
 	public TextDecorator(String content) {
 		super(content);
 		decorated_content = content;
-		
-		decorated_content = new TextColor().decorateText(decorated_content);
 	}
 	
 	@Override 
