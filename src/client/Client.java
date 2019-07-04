@@ -43,7 +43,7 @@ public class Client implements Runnable {
 		else if (args.length != 2) throw new RuntimeException("Syntax: ChatClient <host> <port>");
 		else client = new Client(args[0], Integer.parseInt(args[1]));
 
-		new Swing_GUI(client);
+		new Console(client);
 	}
 		
 	public Client(String host, int port, String username) {

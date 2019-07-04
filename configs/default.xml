@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <feature automatic="selected" name="spleexercise"/>
+    <feature automatic="selected" name="Base"/>
+    <feature automatic="selected" name="CLI"/>
+    <feature manual="selected" name="ServerLogging"/>
+    <feature manual="selected" name="Authentification"/>
+    <feature manual="selected" name="Color"/>
+</configuration>

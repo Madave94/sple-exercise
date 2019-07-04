@@ -4,21 +4,10 @@
     <struct>
         <and abstract="true" mandatory="true" name="spleexercise">
             <feature mandatory="true" name="Base"/>
-            <and mandatory="true" name="TextMessage">
-                <feature name="TextColor"/>
-            </and>
-            <alt abstract="true" name="Encryption">
-                <feature name="Rot13"/>
-                <feature name="Swap2Letters"/>
-            </alt>
-            <alt abstract="true" mandatory="true" name="ChatLineListener">
-                <feature name="GUI"/>
-                <feature name="CLI"/>
-            </alt>
-            <and abstract="true" name="Logging">
-                <feature name="ServerLogging"/>
-            </and>
+            <feature mandatory="true" name="CLI"/>
+            <feature name="ServerLogging"/>
             <feature name="Authentification"/>
+            <feature name="Color"/>
         </and>
     </struct>
     <constraints/>
